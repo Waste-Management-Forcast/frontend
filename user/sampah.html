@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Admin Panel Waste Management</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="DashboardKit is made using Bootstrap 5 design framework. Download the free admin template & use it for your project.">
+    <meta name="keywords" content="DashboardKit, Dashboard Kit, Dashboard UI Kit, Bootstrap 5, Admin Template, Admin Dashboard, CRM, CMS, Free Bootstrap Admin Template">
+    <meta name="author" content="DashboardKit ">
+
+
+    <!-- Favicon icon -->
+    <link rel="icon" href="../../frontend/images/logo/logo-nana-id-mobile.svg" type="image/x-icon">
+
+    <!-- icon font-awesome -->
+    <link rel="stylesheet" href="assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="assets/fontawesome/css/fontawesome.css">
+
+    <!-- font css -->
+    <link rel="stylesheet" href="assets/fonts/feather.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome.css">
+    <link rel="stylesheet" href="assets/fonts/material.css">
+
+    <!-- vendor css -->
+    <link rel="stylesheet" href="assets/css/style.css" id="main-style-link">
+
+</head>
+
+<body class="">
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ Pre-loader ] End -->
+    <!-- [ Mobile header ] start -->
+    <div class="pc-mob-header pc-header">
+        <div class="pcm-logo">
+            WASTE MANAGEMENT
+        </div>
+        <div class="pcm-toolbar">
+            <a href="#!" class="pc-head-link" id="mobile-collapse">
+                <div class="hamburger hamburger--arrowturn">
+                    <div class="hamburger-box">
+                        <div class="hamburger-inner"></div>
+                    </div>
+                </div>
+            </a>
+            <a href="#!" class="pc-head-link" id="header-collapse">
+                <i data-feather="more-vertical"></i>
+            </a>
+        </div>
+    </div>
+    <!-- [ Mobile header ] End -->
+
+    <!-- [ navigation menu ] start -->
+    <nav class="pc-sidebar ">
+        <div class="navbar-wrapper">
+            <div class="m-header">
+                <a href="dashboard-user.html" class="b-brand mt-2 fw-bold text-light">
+                WASTE MANAGEMENT                
+                </a>
+            </div>
+            <div class="navbar-content">
+                <ul class="pc-navbar">
+                    <li class="pc-item pc-caption">
+                        <label>MENU</label>
+                    </li>
+                    <li class="pc-item">
+                        <a href="dashboard-user.html" class="pc-link "><span class="pc-micon">
+                            <i class="fas fa-chart-pie fa-2x"></i></span><span class="pc-mtext">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="pc-item pc-caption">
+                        <label>Content Management</label>
+                    </li>
+                    <a href="sampah.html" class="pc-link "><span class="pc-micon">
+                        <i class="fas fa-dumpster fa-2x"></i></span><span class="pc-mtext">Sampah</span><span class="pc-arrow"></span></a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- [ navigation menu ] end -->
+    <!-- [ Header ] start -->
+    <header class="pc-header ">
+        <div class="header-wrapper">
+            <div class="ml-auto">
+                <ul class="list-unstyled">
+                    <li class="dropdown pc-h-item">
+                        <a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <img src="assets/images/user/user.png" alt="user-image" class="user-avtar">
+                            <span>
+								<span class="user-name">Bpk. Agung</span>
+                            <span class="user-desc">Pengguna</span>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
+                            <a href="../login/login.html" class="dropdown-item">
+                                <i class="fa fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </header>
+    <!-- [ Header ] end -->
+
+    <!-- [ Main Content ] start -->
+    <div class="pc-container">
+        <div class="pcoded-content">
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <!-- customer-section start -->
+                <div class="col-xl-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Daftar Sampah</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-12">
+                                    <button type="button" class="btn btn-primary btn-sm mb-3 ms-auto" data-bs-toggle="modal" data-bs-target="#tambahSampah">
+                                        Tambah Sampah <i class="fa fa-plus mx-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-lg-4 col-12">
+                                    <form>
+                                        <div class="input-group mb-2">
+                                            <input type="text" class="form-control form-control-sm" placeholder="Cari berdasarkan tanggal input, kategori" aria-label="Cari berdasarkan tanggal input, kategori" aria-describedby="btn-search">
+                                            <button class="btn btn-primary ms-1 btn-sm" type="button" id="btn-search"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-lg-3 col-12 ms-auto">
+                                    <form>
+                                        <select class="form-select form-select-sm" aria-label="Default select example">
+                                            <option selected disabled>Filter By Kategori Sampah</option>
+                                            <option value="1">Organik</option>
+                                            <option value="2">Anorganik</option>
+                                          </select>
+                                    </form>
+                                </div>
+                                <div class="col-lg-3 col-12 ms-auto d-none d-sm-block d-md-none">
+                                    <form>
+                                        <select class="form-select form-select-sm" aria-label="Default select example">
+                                            <option selected disabled>Filter By Kategori Sampah</option>
+                                            <option value="1">Organik</option>
+                                            <option value="2">Anorganik</option>
+                                          </select>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="table-responsive mt-3">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Tanggal Input</th>
+                                            <th scope="col">Kategori</th>
+                                            <th scope="col">Berat Sampah</th>
+                                            <th scope="col" class="text-center" width="200">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>
+                                                23 Oktober 2021
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-primary">Organik</span>
+                                            </td>
+                                            <td>
+                                                65 Kg
+                                            </td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-info btn-sm m-1" data-bs-toggle="modal" data-bs-target="#detailSampah">
+                                                    <i class="fa fa-eye mt-1"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#editSampah">
+                                                    <i class="fa fa-pen mt-1"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-sm m-1">
+                                                    <i class="fa fa-trash mt-1"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- customer-section end -->
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="tambahSampah" tabindex="-1" aria-labelledby="tambahSampahLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tambahSampahLabel">Tambah Sampah</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="needs-validation form-contact-me" novalidate>
+                        <div class="form-row">
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control user-input" id="tanggal" required placeholder="Tanggal Input">
+                                <label class="title-column" for="tanggal">Tanggal Input</label>
+                                <div class="valid-feedback">
+                                    Yeay! Great
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <select class="form-select" required>
+                                    <option value="" disabled selected>Kategori Sampah</option>
+                                    <option value="1">Organik</option>
+                                    <option value="2">Anorganik</option>
+                                  </select>
+                                <div class="valid-feedback">
+                                    Yeay! Great
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control user-input" id="berat" required placeholder="berat">
+                                <label class="title-column" for="berat">Berat Sampah</label>
+                                <small class="text-primary fw-bold">Dalam Satuan Kg</small>
+                                <div class="valid-feedback">
+                                    Good Job!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control user-input" placeholder="deskripsi" id="" style="height: 160px;"></textarea>
+                                <label class="title-column" for="deskripsi">Deskripsi</label>
+                                <div class="valid-feedback">
+                                    Good Job!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3 mt-4">
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Upload Gambar</label>
+                                                    <div class="preview-zone hidden">
+                                                        <div class="box box-solid">
+                                                            <div class="box-header with-border">
+                                                                <div><b>Preview</b></div>
+                                                                <div class="box-tools pull-right">
+                                                                    <button type="button" class="btn btn-danger btn-sm remove-preview">
+                                                                    <i class="fa fa-eraser mt-1"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="box-body"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dropzone-wrapper">
+                                                        <div class="dropzone-desc">
+                                                            <i class="glyphicon glyphicon-download-alt"></i>
+                                                            <p>Choose an image file or drag it here.</p>
+                                                        </div>
+                                                        <input type="file" name="img_logo" class="dropzone">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Simpan <i class="fas fa-save ms-1"></i></button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="detailSampah" tabindex="-1" aria-labelledby="detailSampahLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailSampahLabel">Detail Sampah</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="needs-validation form-contact-me" novalidate>
+                        <div class="form-row">
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control user-input" value="2021-10-08" id="tanggal" required placeholder="Tanggal Input" readonly>
+                                <label class="title-column" for="tanggal">Tanggal Input</label>
+                                <div class="valid-feedback">
+                                    Yeay! Great
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <select class="form-select" required disabled>
+                                    <option >Kategori Sampah</option>
+                                    <option disabled selected="selected">Organik</option>
+                                    <option >Anorganik</option>
+                                  </select>
+                                <div class="valid-feedback">
+                                    Yeay! Great
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="number" value="5" readonly class="form-control user-input" id="berat" required placeholder="berat">
+                                <label class="title-column" for="berat">Berat Sampah</label>
+                                <small class="text-primary fw-bold">Dalam Satuan Kg</small>
+                                <div class="valid-feedback">
+                                    Good Job!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control user-input" readonly placeholder="deskripsi" id="" style="height: 160px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas accusantium provident ex nesciunt quis nemo, fugiat labore nostrum? Modi quidem officiis cum! Explicabo perferendis eveniet quae et voluptatem! Sapiente, animi.</textarea>
+                                <label class="title-column" for="deskripsi">Deskripsi</label>
+                                <div class="valid-feedback">
+                                    Good Job!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3 mt-4">
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Upload Gambar</label>
+                                                    <div class="preview-zone hidden">
+                                                        <div class="box box-solid">
+                                                            <div class="box-header with-border">
+                                                                <div><b>Preview</b></div>
+                                                                <div class="box-tools pull-right">
+                                                                    <button type="button" class="btn btn-danger btn-sm remove-preview">
+                                                                    <i class="fa fa-eraser mt-1"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="box-body"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dropzone-wrapper">
+                                                        <div class="dropzone-desc">
+                                                            <i class="glyphicon glyphicon-download-alt"></i>
+                                                            <p>Choose an image file or drag it here.</p>
+                                                        </div>
+                                                        <input type="file" name="img_logo" class="dropzone">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="editSampah" tabindex="-1" aria-labelledby="editSampahLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editSampahLabel">Edit Sampah</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="needs-validation form-contact-me" novalidate>
+                        <div class="form-row">
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control user-input" value="2021-10-08" id="tanggal" required placeholder="Tanggal Input">
+                                <label class="title-column" for="tanggal">Tanggal Input</label>
+                                <div class="valid-feedback">
+                                    Yeay! Great
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <select class="form-select" required>
+                                    <option value="" disabled>Kategori Sampah</option>
+                                    <option value="1" selected>Organik</option>
+                                    <option value="2">Anorganik</option>
+                                  </select>
+                                <div class="valid-feedback">
+                                    Yeay! Great
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="number" value="5" class="form-control user-input" id="berat" required placeholder="berat">
+                                <label class="title-column" for="berat">Berat Sampah</label>
+                                <small class="text-primary fw-bold">Dalam Satuan Kg</small>
+                                <div class="valid-feedback">
+                                    Good Job!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control user-input" placeholder="deskripsi" id="" style="height: 160px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas accusantium provident ex nesciunt quis nemo, fugiat labore nostrum? Modi quidem officiis cum! Explicabo perferendis eveniet quae et voluptatem! Sapiente, animi.</textarea>
+                                <label class="title-column" for="deskripsi">Deskripsi</label>
+                                <div class="valid-feedback">
+                                    Good Job!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3 mt-4">
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Upload Gambar</label>
+                                                    <div class="preview-zone hidden">
+                                                        <div class="box box-solid">
+                                                            <div class="box-header with-border">
+                                                                <div><b>Preview</b></div>
+                                                                <div class="box-tools pull-right">
+                                                                    <button type="button" class="btn btn-danger btn-sm remove-preview">
+                                                                    <i class="fa fa-eraser mt-1"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="box-body"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dropzone-wrapper">
+                                                        <div class="dropzone-desc">
+                                                            <i class="glyphicon glyphicon-download-alt"></i>
+                                                            <p>Choose an image file or drag it here.</p>
+                                                        </div>
+                                                        <input type="file" name="img_logo" class="dropzone">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Simpan <i class="fas fa-save ms-1"></i></button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Bootstrap Form Validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+
+    <!-- Required Js -->
+    <script src="assets/js/vendor-all.min.js"></script>
+    <script src="assets/js/plugins/bootstrap.min.js"></script>
+    <script src="assets/js/plugins/feather.min.js"></script>
+    <script src="assets/js/pcoded.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Jquery -->
+    <script src="assets/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- Icon font-awesome JS -->
+    <script src="assets/fontawesome/js/all.js"></script>
+    <script src="assets/fontawesome/js/fontawesome.js"></script>
+
+    <!-- Apex Chart -->
+    <script src="assets/js/plugins/apexcharts.min.js"></script>
+
+    <!-- custom-chart js -->
+    <script src="assets/js/pages/dashboard-sale.js"></script>
+
+    <!-- MY JS -->
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
