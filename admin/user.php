@@ -162,7 +162,7 @@
                                         </tr>
                                     </thead>
                                     <?php
-                                    $url = "http://localhost:5000/warga";
+                                    $url = "http://103.31.39.48:5000/warga";
                                     $obj = json_decode(file_get_contents($url), true);
                                     // echo var_dump($obj["data"][0]["nama_admin"]);
                                     $i = 1;
@@ -337,7 +337,7 @@
         $email = $_POST['email'];
         // $defaultPassword = "123";
 
-        $url = "http://localhost:5000/warga";
+        $url = "http://103.31.39.48:5000/warga";
 
         $data = array(
             'nama_kepala_keluarga' => $nama_kepala_keluarga,
@@ -373,7 +373,7 @@
         $no_telp =  $_POST['edit-notelp'];
         $email = $_POST['edit-email'];
 
-        $url = "http://localhost:5000/warga/" . $id_warga;
+        $url = "http://103.31.39.48:5000/warga/" . $id_warga;
 
         $data = array(
             'nama_kepala_keluarga' => $nama_kepala_keluarga,
@@ -404,7 +404,7 @@
     if (isset($_POST['delete-user'])) {
         $id_warga = $_POST['delete-user'];
 
-        $url = "http://localhost:5000/warga/" . $id_warga;
+        $url = "http://103.31.39.48:5000/warga/" . $id_warga;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);

@@ -161,7 +161,7 @@
                                         </tr>
                                     </thead>
                                     <?php
-                                    $url = "http://localhost:5000/admin";
+                                    $url = "http://103.31.39.48:5000/admin";
                                     $obj = json_decode(file_get_contents($url), true);
                                     // echo var_dump($obj["data"][0]["nama_admin"]);
                                     $i = 1;
@@ -330,7 +330,7 @@
         $email = $_POST['email'];
         // $defaultPassword = "123";
 
-        $url = "http://localhost:5000/admin";
+        $url = "http://103.31.39.48:5000/admin";
 
         $data = array(
             'nama_admin' => $nama_admin,
@@ -375,7 +375,7 @@
         $email = $_POST['edit-email'];
         $defaultPassword = "123";
 
-        $url = "http://localhost:5000/admin/" . $id_admin;
+        $url = "http://103.31.39.48:5000/admin/" . $id_admin;
 
         $data = array(
             'nama_admin' => $nama_admin,
@@ -411,7 +411,7 @@
     if (isset($_POST['delete-admin'])) {
         $id_admin = $_POST['delete-admin'];
 
-        $url = "http://localhost:5000/admin/" . $id_admin;
+        $url = "http://103.31.39.48:5000/admin/" . $id_admin;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
