@@ -1,16 +1,19 @@
 $(document).ready(function() {
 
-    // Search icon skill
-    $(document).on('click', '#search-skill-icon', function(e) {
-        let keyword = $('.keyword-icon').val();
+    $(document).on('change', '#klasifikasi-sampah', function(e) {
         e.preventDefault();
-        $('#icon-result').removeClass();
-        $('#icon-result').addClass('fa fa-spin fa-spinner');
-        setTimeout(() => {
-            $('#icon-result').removeClass();
-            $('#icon-result').addClass(keyword);
-        }, 1000);
-    })
+
+        let klasifikasi = $(this).val();
+
+        console.log(klasifikasi);
+
+        if (klasifikasi == 'Organik') {
+            $('#nama-kategori').html(`
+            <option value="Basah">Basah</option>
+            <option value="Kering">Kering</option>
+            `)
+        }
+    });
 
 });
 

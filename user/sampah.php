@@ -13,19 +13,18 @@
 
 
     <!-- Favicon icon -->
-    <link rel="icon" href="../../frontend/images/logo/logo-nana-id-mobile.svg" type="image/x-icon">
 
     <!-- icon font-awesome -->
-    <link rel="stylesheet" href="assets/fontawesome/css/all.css">
-    <link rel="stylesheet" href="assets/fontawesome/css/fontawesome.css">
+    <link rel="stylesheet" href="../assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../assets/fontawesome/css/fontawesome.css">
 
     <!-- font css -->
-    <link rel="stylesheet" href="assets/fonts/feather.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome.css">
-    <link rel="stylesheet" href="assets/fonts/material.css">
+    <link rel="stylesheet" href="../assets/fonts/feather.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome.css">
+    <link rel="stylesheet" href="../assets/fonts/material.css">
 
     <!-- vendor css -->
-    <link rel="stylesheet" href="assets/css/style.css" id="main-style-link">
+    <link rel="stylesheet" href="../assets/css/style.css" id="main-style-link">
 
 </head>
 
@@ -62,7 +61,7 @@
         <div class="navbar-wrapper">
             <div class="m-header">
                 <a href="dashboard-user.html" class="b-brand mt-2 fw-bold text-light">
-                WASTE MANAGEMENT                
+                    WASTE MANAGEMENT
                 </a>
             </div>
             <div class="navbar-content">
@@ -72,14 +71,14 @@
                     </li>
                     <li class="pc-item">
                         <a href="dashboard-user.html" class="pc-link "><span class="pc-micon">
-                            <i class="fas fa-chart-pie fa-2x"></i></span><span class="pc-mtext">Dashboard</span>
+                                <i class="fas fa-chart-pie fa-2x"></i></span><span class="pc-mtext">Dashboard</span>
                         </a>
                     </li>
                     <li class="pc-item pc-caption">
                         <label>Content Management</label>
                     </li>
                     <a href="sampah.html" class="pc-link "><span class="pc-micon">
-                        <i class="fas fa-dumpster fa-2x"></i></span><span class="pc-mtext">Sampah</span><span class="pc-arrow"></span></a>
+                            <i class="fas fa-dumpster fa-2x"></i></span><span class="pc-mtext">Sampah</span><span class="pc-arrow"></span></a>
                 </ul>
             </div>
         </div>
@@ -92,10 +91,10 @@
                 <ul class="list-unstyled">
                     <li class="dropdown pc-h-item">
                         <a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <img src="assets/images/user/user.png" alt="user-image" class="user-avtar">
+                            <img src="../assets/images/user/user.png" alt="user-image" class="user-avtar">
                             <span>
-								<span class="user-name">Bpk. Agung</span>
-                            <span class="user-desc">Pengguna</span>
+                                <span class="user-name">Bpk. Agung</span>
+                                <span class="user-desc">Pengguna</span>
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
@@ -146,7 +145,7 @@
                                             <option selected disabled>Filter By Kategori Sampah</option>
                                             <option value="1">Organik</option>
                                             <option value="2">Anorganik</option>
-                                          </select>
+                                        </select>
                                     </form>
                                 </div>
                                 <div class="col-lg-3 col-12 ms-auto d-none d-sm-block d-md-none">
@@ -155,7 +154,7 @@
                                             <option selected disabled>Filter By Kategori Sampah</option>
                                             <option value="1">Organik</option>
                                             <option value="2">Anorganik</option>
-                                          </select>
+                                        </select>
                                     </form>
                                 </div>
                             </div>
@@ -165,8 +164,8 @@
                                         <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Tanggal Input</th>
-                                            <th scope="col">Kategori</th>
-                                            <th scope="col">Berat Sampah</th>
+                                            <th scope="col">Klasifikasi</th>
+                                            <th scope="col">Berat Total Sampah</th>
                                             <th scope="col" class="text-center" width="200">Aksi</th>
                                         </tr>
                                     </thead>
@@ -218,7 +217,26 @@
                 <div class="modal-body">
                     <form class="needs-validation form-contact-me" novalidate>
                         <div class="form-row">
-                            <div class="form-floating mb-3">
+                            <div class="input-group mb-3">
+                                <select class="form-select" required>
+                                    <option value="" disabled selected>Nama Kepala Keluarga</option>
+                                    <?php
+                                    $url = "http://116.193.190.156/waste-api/warga";
+                                    $obj = json_decode(file_get_contents($url), true);
+                                    // echo var_dump($obj["data"][0]["nama_admin"]);
+                                    $i = 1;
+                                    foreach ($obj["data"] as $arr) { ?>
+                                        <option value="<?= $arr['id_warga']; ?>"><?= $arr['nama_kepala_keluarga']; ?></option>
+                                    <?php } ?>
+                                </select>
+                                <div class="valid-feedback">
+                                    Yeay! Great
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                            <div class="form-floating mb-4">
                                 <input type="date" class="form-control user-input" id="tanggal" required placeholder="Tanggal Input">
                                 <label class="title-column" for="tanggal">Tanggal Input</label>
                                 <div class="valid-feedback">
@@ -228,72 +246,13 @@
                                     Oh No! Required to Fill
                                 </div>
                             </div>
-                            <div class="input-group mb-3">
-                                <select class="form-select" required>
-                                    <option value="" disabled selected>Kategori Sampah</option>
-                                    <option value="1">Organik</option>
-                                    <option value="2">Anorganik</option>
-                                  </select>
-                                <div class="valid-feedback">
-                                    Yeay! Great
-                                </div>
-                                <div class="invalid-feedback">
-                                    Oh No! Required to Fill
-                                </div>
+                            <hr>
+                            <div class="container px-2" id="area-tambah-kategori">
+
                             </div>
-                            <div class="form-floating mb-3">
-                                <input type="number" class="form-control user-input" id="berat" required placeholder="berat">
-                                <label class="title-column" for="berat">Berat Sampah</label>
-                                <small class="text-primary fw-bold">Dalam Satuan Kg</small>
-                                <div class="valid-feedback">
-                                    Good Job!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Oh No! Required to Fill
-                                </div>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <textarea class="form-control user-input" placeholder="deskripsi" id="" style="height: 160px;"></textarea>
-                                <label class="title-column" for="deskripsi">Deskripsi</label>
-                                <div class="valid-feedback">
-                                    Good Job!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Oh No! Required to Fill
-                                </div>
-                            </div>
-                            <div class="form-floating mb-3 mt-4">
-                                <form action="" method="POST" enctype="multipart/form-data">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">Upload Gambar</label>
-                                                    <div class="preview-zone hidden">
-                                                        <div class="box box-solid">
-                                                            <div class="box-header with-border">
-                                                                <div><b>Preview</b></div>
-                                                                <div class="box-tools pull-right">
-                                                                    <button type="button" class="btn btn-danger btn-sm remove-preview">
-                                                                    <i class="fa fa-eraser mt-1"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="box-body"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="dropzone-wrapper">
-                                                        <div class="dropzone-desc">
-                                                            <i class="glyphicon glyphicon-download-alt"></i>
-                                                            <p>Choose an image file or drag it here.</p>
-                                                        </div>
-                                                        <input type="file" name="img_logo" class="dropzone">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                            <div class="d-flex justify-content-between align-items-center mt-5">
+                                <button class="btn btn-sm btn-primary" id="tambah-kategori">Tambah Kategori</button>
+                                <span class="">Berat Total : <span id="berat-total">-</span></span>
                             </div>
                         </div>
                 </div>
@@ -328,10 +287,10 @@
                             </div>
                             <div class="input-group mb-3">
                                 <select class="form-select" required disabled>
-                                    <option >Kategori Sampah</option>
+                                    <option>Kategori Sampah</option>
                                     <option disabled selected="selected">Organik</option>
-                                    <option >Anorganik</option>
-                                  </select>
+                                    <option>Anorganik</option>
+                                </select>
                                 <div class="valid-feedback">
                                     Yeay! Great
                                 </div>
@@ -359,39 +318,6 @@
                                 <div class="invalid-feedback">
                                     Oh No! Required to Fill
                                 </div>
-                            </div>
-                            <div class="form-floating mb-3 mt-4">
-                                <form action="" method="POST" enctype="multipart/form-data">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">Upload Gambar</label>
-                                                    <div class="preview-zone hidden">
-                                                        <div class="box box-solid">
-                                                            <div class="box-header with-border">
-                                                                <div><b>Preview</b></div>
-                                                                <div class="box-tools pull-right">
-                                                                    <button type="button" class="btn btn-danger btn-sm remove-preview">
-                                                                    <i class="fa fa-eraser mt-1"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="box-body"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="dropzone-wrapper">
-                                                        <div class="dropzone-desc">
-                                                            <i class="glyphicon glyphicon-download-alt"></i>
-                                                            <p>Choose an image file or drag it here.</p>
-                                                        </div>
-                                                        <input type="file" name="img_logo" class="dropzone">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                 </div>
@@ -428,7 +354,7 @@
                                     <option value="" disabled>Kategori Sampah</option>
                                     <option value="1" selected>Organik</option>
                                     <option value="2">Anorganik</option>
-                                  </select>
+                                </select>
                                 <div class="valid-feedback">
                                     Yeay! Great
                                 </div>
@@ -456,39 +382,6 @@
                                 <div class="invalid-feedback">
                                     Oh No! Required to Fill
                                 </div>
-                            </div>
-                            <div class="form-floating mb-3 mt-4">
-                                <form action="" method="POST" enctype="multipart/form-data">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">Upload Gambar</label>
-                                                    <div class="preview-zone hidden">
-                                                        <div class="box box-solid">
-                                                            <div class="box-header with-border">
-                                                                <div><b>Preview</b></div>
-                                                                <div class="box-tools pull-right">
-                                                                    <button type="button" class="btn btn-danger btn-sm remove-preview">
-                                                                    <i class="fa fa-eraser mt-1"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="box-body"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="dropzone-wrapper">
-                                                        <div class="dropzone-desc">
-                                                            <i class="glyphicon glyphicon-download-alt"></i>
-                                                            <p>Choose an image file or drag it here.</p>
-                                                        </div>
-                                                        <input type="file" name="img_logo" class="dropzone">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                 </div>
@@ -523,29 +416,29 @@
     </script>
 
     <!-- Required Js -->
-    <script src="assets/js/vendor-all.min.js"></script>
-    <script src="assets/js/plugins/bootstrap.min.js"></script>
-    <script src="assets/js/plugins/feather.min.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
+    <script src="../assets/js/vendor-all.min.js"></script>
+    <script src="../assets/js/plugins/bootstrap.min.js"></script>
+    <script src="../assets/js/plugins/feather.min.js"></script>
+    <script src="../assets/js/pcoded.min.js"></script>
 
     <!-- Bootstrap JS -->
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Jquery -->
-    <script src="assets/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../assets/jquery/jquery-3.6.0.min.js"></script>
 
     <!-- Icon font-awesome JS -->
-    <script src="assets/fontawesome/js/all.js"></script>
-    <script src="assets/fontawesome/js/fontawesome.js"></script>
+    <script src="../assets/fontawesome/js/all.js"></script>
+    <script src="../assets/fontawesome/js/fontawesome.js"></script>
 
     <!-- Apex Chart -->
-    <script src="assets/js/plugins/apexcharts.min.js"></script>
+    <script src="../assets/js/plugins/apexcharts.min.js"></script>
 
     <!-- custom-chart js -->
-    <script src="assets/js/pages/dashboard-sale.js"></script>
+    <script src="../assets/js/pages/dashboard-sale.js"></script>
 
     <!-- MY JS -->
-    <script src="assets/js/script.js"></script>
+    <script src="../assets/js/script.js"></script>
 </body>
 
 </html>

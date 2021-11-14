@@ -16,16 +16,16 @@
     <link rel="icon" href="#" type="image/x-icon">
 
     <!-- icon font-awesome -->
-    <link rel="stylesheet" href="assets/fontawesome/css/all.css">
-    <link rel="stylesheet" href="assets/fontawesome/css/fontawesome.css">
+    <link rel="stylesheet" href="../assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="../assets/fontawesome/css/fontawesome.css">
 
     <!-- font css -->
-    <link rel="stylesheet" href="assets/fonts/feather.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome.css">
-    <link rel="stylesheet" href="assets/fonts/material.css">
+    <link rel="stylesheet" href="../assets/fonts/feather.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome.css">
+    <link rel="stylesheet" href="../assets/fonts/material.css">
 
     <!-- vendor css -->
-    <link rel="stylesheet" href="assets/css/style.css" id="main-style-link">
+    <link rel="stylesheet" href="../assets/css/style.css" id="main-style-link">
 
 </head>
 
@@ -100,7 +100,7 @@
                 <ul class="list-unstyled">
                     <li class="dropdown pc-h-item">
                         <a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <img src="assets/images/user/admin.png" alt="user-image" class="user-avtar">
+                            <img src="../assets/images/user/admin.png" alt="user-image" class="user-avtar">
                             <span>
                                 <span class="user-name">Administrator</span>
                                 <span class="user-desc">Super Admin</span>
@@ -162,7 +162,7 @@
                                         </tr>
                                     </thead>
                                     <?php
-                                    $url = "http://103.31.39.48:5000/warga";
+                                    $url = "http://116.193.190.156/waste-api/warga";
                                     $obj = json_decode(file_get_contents($url), true);
                                     // echo var_dump($obj["data"][0]["nama_admin"]);
                                     $i = 1;
@@ -337,7 +337,7 @@
         $email = $_POST['email'];
         // $defaultPassword = "123";
 
-        $url = "http://103.31.39.48:5000/warga";
+        $url = "http://116.193.190.156/waste-api/warga";
 
         $data = array(
             'nama_kepala_keluarga' => $nama_kepala_keluarga,
@@ -373,7 +373,7 @@
         $no_telp =  $_POST['edit-notelp'];
         $email = $_POST['edit-email'];
 
-        $url = "http://103.31.39.48:5000/warga/" . $id_warga;
+        $url = "http://116.193.190.156/waste-api/warga/" . $id_warga;
 
         $data = array(
             'nama_kepala_keluarga' => $nama_kepala_keluarga,
@@ -404,7 +404,7 @@
     if (isset($_POST['delete-user'])) {
         $id_warga = $_POST['delete-user'];
 
-        $url = "http://103.31.39.48:5000/warga/" . $id_warga;
+        $url = "http://116.193.190.156/waste-api/warga/" . $id_warga;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -443,29 +443,29 @@
 
 
     <!-- Required Js -->
-    <script src="assets/js/vendor-all.min.js"></script>
-    <script src="assets/js/plugins/bootstrap.min.js"></script>
-    <script src="assets/js/plugins/feather.min.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
+    <script src="../assets/js/vendor-all.min.js"></script>
+    <script src="../assets/js/plugins/bootstrap.min.js"></script>
+    <script src="../assets/js/plugins/feather.min.js"></script>
+    <script src="../assets/js/pcoded.min.js"></script>
 
     <!-- Bootstrap JS -->
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Jquery -->
-    <script src="assets/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../assets/jquery/jquery-3.6.0.min.js"></script>
 
     <!-- Icon font-awesome JS -->
-    <script src="assets/fontawesome/js/all.js"></script>
-    <script src="assets/fontawesome/js/fontawesome.js"></script>
+    <script src="../assets/fontawesome/js/all.js"></script>
+    <script src="../assets/fontawesome/js/fontawesome.js"></script>
 
     <!-- Apex Chart -->
-    <script src="assets/js/plugins/apexcharts.min.js"></script>
+    <script src="../assets/js/plugins/apexcharts.min.js"></script>
 
     <!-- custom-chart js -->
-    <script src="assets/js/pages/dashboard-sale.js"></script>
+    <script src="../assets/js/pages/dashboard-sale.js"></script>
 
     <!-- MY JS -->
-    <script src="assets/js/script.js"></script>
+    <script src="../assets/js/script.js"></script>
 </body>
 
 </html>
