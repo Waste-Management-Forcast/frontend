@@ -16,18 +16,18 @@
     <link rel="icon" href="#" type="image/x-icon">
 
     <!-- icon font-awesome -->
-    <link rel="stylesheet" href="../assets/fontawesome/css/all.css">
-    <link rel="stylesheet" href="../assets/fontawesome/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="assets/fontawesome/css/fontawesome.css">
 
     <!-- font css -->
-    <link rel="stylesheet" href="../assets/fonts/feather.css">
-    <link rel="stylesheet" href="../assets/fonts/fontawesome.css">
-    <link rel="stylesheet" href="../assets/fonts/material.css">
+    <link rel="stylesheet" href="assets/fonts/feather.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome.css">
+    <link rel="stylesheet" href="assets/fonts/material.css">
 
     <link rel='stylesheet' href='../assets/sweetalert/dist/sweetalert2.min.css'>
 
     <!-- vendor css -->
-    <link rel="stylesheet" href="../assets/css/style.css" id="main-style-link">
+    <link rel="stylesheet" href="assets/css/style.css" id="main-style-link">
 
 </head>
 
@@ -102,7 +102,7 @@
                 <ul class="list-unstyled">
                     <li class="dropdown pc-h-item">
                         <a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <img src="../assets/images/user/admin.png" alt="user-image" class="user-avtar">
+                            <img src="assets/images/user/admin.png" alt="user-image" class="user-avtar">
                             <span>
                                 <span class="user-name">Administrator</span>
                                 <span class="user-desc">Super Admin</span>
@@ -201,10 +201,10 @@
                                                     $obj1 = json_decode(file_get_contents($url1), true);
                                                     ?>
                                                     <div class="modal-body">
-                                                        <form class="needs-validation form-contact-me" action="" method="POST" novalidate>
+                                                        <form action="" method="POST" class="needs-validation form-contact-me" novalidate>
                                                             <div class="form-row">
                                                                 <div class="form-floating mb-3">
-                                                                    <input type="text" name="nama" class="form-control user-input" id="name" required placeholder="Masukan Nama">
+                                                                    <input type="text" name="edit-nama" class="form-control user-input" id="name" required placeholder="Masukan Nama" value="<?= $obj1['data']['nama_admin']; ?>">
                                                                     <label class="title-column" for="name">Nama</label>
                                                                     <div class="valid-feedback">
                                                                         Yeay! Great
@@ -214,7 +214,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-floating mb-3">
-                                                                    <input type="date" name="tgl-lahir" class="form-control user-input" id="tgl-lahir" required>
+                                                                    <input type="text" name="edit-tgl-lahir" class="form-control user-input" id="tgl-lahir" required value="<?= $obj1['data']['tanggal_lahir']; ?>">
                                                                     <label class="title-column" for="tgl-lahir">Tanggal lahir</label>
                                                                     <div class="valid-feedback">
                                                                         Yeay! Great
@@ -224,7 +224,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-floating mb-3">
-                                                                    <input type="text" name="tempat-lahir" class="form-control user-input" id="tempatlahir" required placeholder="Masukan Tempat Lahir">
+                                                                    <input type="text" name="edit-tempat-lahir" class="form-control user-input" id="tempatlahir" required placeholder="Masukan Tempat Lahir" value="<?= $obj1['data']['tempat_lahir']; ?>">
                                                                     <label class="title-column" for="tempatlahir">Tempat Lahir</label>
                                                                     <div class="valid-feedback">
                                                                         Yeay! Great
@@ -234,7 +234,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-floating mb-3">
-                                                                    <input type="text" name="agama" class="form-control user-input" id="agama" required placeholder="Masukan Agama">
+                                                                    <input type="text" name="edit-agama" class="form-control user-input" id="agama" required placeholder="Masukan Agama" value="<?= $obj1['data']['agama']; ?>">
                                                                     <label class="title-column" for="agama">Agama</label>
                                                                     <div class="valid-feedback">
                                                                         Yeay! Great
@@ -244,7 +244,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-floating mb-3">
-                                                                    <textarea class="form-control user-input" required placeholder="alamat" name="alamat" style="height: 160px;"></textarea>
+                                                                    <textarea class="form-control user-input" required placeholder="alamat" name="edit-alamat" style="height: 160px;"><?= $obj1['data']['alamat']; ?></textarea>
                                                                     <label class="title-column" for="alamat">Alamat</label>
                                                                     <div class="valid-feedback">
                                                                         Good Job!
@@ -256,13 +256,13 @@
                                                                 <div class="form-floating mb-3">
                                                                     Jenis Kelamin
                                                                     <div class="form-check mt-2">
-                                                                        <input class="form-check-input" type="radio" name="jenis-kelamin" id="jeniskelamin1" value="0" checked>
+                                                                        <input class="form-check-input" type="radio" name="edit-jenis-kelamin" id="jeniskelamin1" value="0" <?= $obj1['data']['jenis_kelamin'] == 'Laki-laki' ? 'checked="checked"' : ''; ?>>
                                                                         <label class="form-check-label" for="jeniskelamin1">
                                                                             Laki-Laki
                                                                         </label>
                                                                     </div>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="jenis-kelamin" id="jeniskelamin2" value="1">
+                                                                        <input class="form-check-input" type="radio" name="edit-jenis-kelamin" id="jeniskelamin2" value="1" <?= $obj1['data']['jenis_kelamin'] == 'Perempuan' ? 'checked="checked"' : ''; ?>>
                                                                         <label class="form-check-label" for="jeniskelamin2">
                                                                             Perempuan
                                                                         </label>
@@ -275,7 +275,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-floating mb-3">
-                                                                    <input type="email" name="email" class="form-control user-input" id="email" required placeholder="Masukan Email Valid">
+                                                                    <input type="email" name="edit-email" class="form-control user-input" id="email" required placeholder="Masukan Email Valid" value="<?= $obj1['data']['email']; ?>">
                                                                     <label class="title-column" for="email">Email</label>
                                                                     <div class="valid-feedback">
                                                                         Yeay! Great
@@ -285,7 +285,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-floating mb-3">
-                                                                    <input type="number" name="no-telp" class="form-control user-input" id="notelepon" required placeholder="notelepon">
+                                                                    <input type="number" name="edit-no-telp" class="form-control user-input" id="notelepon" required placeholder="notelepon" value="<?= $obj1['data']['no_telp']; ?>">
                                                                     <label class="title-column" for="notelepon">No Telepon</label>
                                                                     <div class="valid-feedback">
                                                                         Good Job!
@@ -472,13 +472,13 @@
 
         curl_close($ch);
         // header("Refresh:0; url=admin.php");
-        echo "<script>alert('Data Berhasil Ditambah !!!'); window.location='admin.php';</script>";
+        echo "<script>alert('Data Berhasil Disimpan !!!'); window.location='admin.php';</script>";
     }
     ?>
 
     <!-- Process edit data admin using PUT Method CuRL -->
     <?php
-    if (isset($_POST['update-admin'])) {
+    if (isset($_POST['edit-admin'])) {
         $id_admin = $_POST['edit-admin'];
         $nama_admin = $_POST['edit-nama'];
         $tanggal_lahir = $_POST['edit-tanggal-lahir'];
@@ -566,29 +566,29 @@
 
 
     <!-- Required Js -->
-    <script src="../assets/js/vendor-all.min.js"></script>
-    <script src="../assets/js/plugins/bootstrap.min.js"></script>
-    <script src="../assets/js/plugins/feather.min.js"></script>
-    <script src="../assets/js/pcoded.min.js"></script>
+    <script src="assets/js/vendor-all.min.js"></script>
+    <script src="assets/js/plugins/bootstrap.min.js"></script>
+    <script src="assets/js/plugins/feather.min.js"></script>
+    <script src="assets/js/pcoded.min.js"></script>
 
     <!-- Bootstrap JS -->
-    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Icon font-awesome JS -->
-    <script src="../assets/fontawesome/js/all.js"></script>
-    <script src="../assets/fontawesome/js/fontawesome.js"></script>
+    <script src="assets/fontawesome/js/all.js"></script>
+    <script src="assets/fontawesome/js/fontawesome.js"></script>
 
     <!-- Apex Chart -->
-    <script src="../assets/js/plugins/apexcharts.min.js"></script>
+    <script src="assets/js/plugins/apexcharts.min.js"></script>
 
     <!-- custom-chart js -->
-    <script src="../assets/js/pages/dashboard-sale.js"></script>
+    <script src="assets/js/pages/dashboard-sale.js"></script>
 
     <script src="../assets/sweetalert/dist/sweetalert2.all.min.js"></script>
-    <script src="../assets/jquery/jquery-3.6.0.min.js"></script>
+    <script src="assets/jquery/jquery-3.6.0.min.js"></script>
 
     <!-- MY JS -->
-    <script src="../assets/js/script.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 
 </html>

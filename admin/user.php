@@ -288,7 +288,7 @@
                                 </div>
                             </div>
                             <div class="form-floating mb-3">
-                                <textarea name="alamat" class="form-control user-input" placeholder="alamat" id="" style="height: 160px;"></textarea>
+                                <textarea name="alamat" class="form-control user-input" placeholder="alamat" id="alamat" style="height: 160px;"></textarea>
                                 <label class="title-column" for="alamat">Alamat</label>
                                 <div class="valid-feedback">
                                     Good Job!

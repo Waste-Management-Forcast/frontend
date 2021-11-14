@@ -182,12 +182,84 @@
                                                 65 Kg
                                             </td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-info btn-sm m-1" data-bs-toggle="modal" data-bs-target="#detailSampah">
-                                                    <i class="fa fa-eye mt-1"></i>
-                                                </button>
                                                 <button type="button" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#editSampah">
                                                     <i class="fa fa-pen mt-1"></i>
                                                 </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="editSampah" tabindex="-1" aria-labelledby="editSampahLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-scrollable">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editSampahLabel">Edit Sampah</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form class="needs-validation form-contact-me" novalidate>
+                                                                    <div class="form-row">
+                                                                        <div class="input-group mb-3">
+                                                                            <select class="form-select" name="id-warga" required>
+                                                                                <option value="" disabled selected>Nama Kepala Keluarga</option>
+                                                                                <?php
+                                                                                $url = "http://116.193.190.156/waste-api/warga";
+                                                                                $obj = json_decode(file_get_contents($url), true);
+                                                                                // echo var_dump($obj["data"][0]["nama_admin"]);
+                                                                                $i = 1;
+                                                                                foreach ($obj["data"] as $arr) { ?>
+                                                                                    <option value="<?= $arr['id_warga']; ?>"><?= $arr['nama_kepala_keluarga']; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                            <div class="valid-feedback">
+                                                                                Yeay! Great
+                                                                            </div>
+                                                                            <div class="invalid-feedback">
+                                                                                Oh No! Required to Fill
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="input-group mb-3">
+                                                                            <select class="form-select" name="id-admin" required>
+                                                                                <option value="" disabled selected>Nama Admin</option>
+                                                                                <?php
+                                                                                $url = "http://116.193.190.156/waste-api/admin";
+                                                                                $obj = json_decode(file_get_contents($url), true);
+                                                                                // echo var_dump($obj["data"][0]["nama_admin"]);
+                                                                                $i = 1;
+                                                                                foreach ($obj["data"] as $arr) { ?>
+                                                                                    <option value="<?= $arr['id_admin']; ?>"><?= $arr['nama_admin']; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                            <div class="valid-feedback">
+                                                                                Yeay! Great
+                                                                            </div>
+                                                                            <div class="invalid-feedback">
+                                                                                Oh No! Required to Fill
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-floating mb-4">
+                                                                            <input type="date" class="form-control user-input" name="tgl-input" id="tanggal" required placeholder="Tanggal Input">
+                                                                            <input type="hidden" name="value-berat-total" id="value-berat-total">
+                                                                            <label class="title-column" for="tanggal">Tanggal Input</label>
+                                                                            <div class="valid-feedback">
+                                                                                Yeay! Great
+                                                                            </div>
+                                                                            <div class="invalid-feedback">
+                                                                                Oh No! Required to Fill
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr>
+                                                                        <div class="container px-2" id="area-tambah-kategori">
+
+                                                                        </div>
+                                                                    </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
+                                                                <button type="submit" class="btn btn-primary btn-sm">Simpan <i class="fas fa-save ms-1"></i></button>
+                                                            </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <button type="button" class="btn btn-danger btn-sm m-1">
                                                     <i class="fa fa-trash mt-1"></i>
                                                 </button>
@@ -215,10 +287,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="needs-validation form-contact-me" novalidate>
+                    <form class="needs-validation form-contact-me" action="" method="POST" novalidate>
                         <div class="form-row">
                             <div class="input-group mb-3">
-                                <select class="form-select" required>
+                                <select class="form-select" name="id-warga" required>
                                     <option value="" disabled selected>Nama Kepala Keluarga</option>
                                     <?php
                                     $url = "http://116.193.190.156/waste-api/warga";
@@ -236,8 +308,28 @@
                                     Oh No! Required to Fill
                                 </div>
                             </div>
+                            <div class="input-group mb-3">
+                                <select class="form-select" name="id-admin" required>
+                                    <option value="" disabled selected>Nama Admin</option>
+                                    <?php
+                                    $url = "http://116.193.190.156/waste-api/admin";
+                                    $obj = json_decode(file_get_contents($url), true);
+                                    // echo var_dump($obj["data"][0]["nama_admin"]);
+                                    $i = 1;
+                                    foreach ($obj["data"] as $arr) { ?>
+                                        <option value="<?= $arr['id_admin']; ?>"><?= $arr['nama_admin']; ?></option>
+                                    <?php } ?>
+                                </select>
+                                <div class="valid-feedback">
+                                    Yeay! Great
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
                             <div class="form-floating mb-4">
-                                <input type="date" class="form-control user-input" id="tanggal" required placeholder="Tanggal Input">
+                                <input type="date" class="form-control user-input" name="tgl-input" id="tanggal" required placeholder="Tanggal Input">
+                                <input type="hidden" name="value-berat-total" id="value-berat-total">
                                 <label class="title-column" for="tanggal">Tanggal Input</label>
                                 <div class="valid-feedback">
                                     Yeay! Great
@@ -250,149 +342,148 @@
                             <div class="container px-2" id="area-tambah-kategori">
 
                             </div>
-                            <div class="d-flex justify-content-between align-items-center mt-5">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <button class="btn btn-sm btn-primary" id="tambah-kategori">Tambah Kategori</button>
-                                <span class="">Berat Total : <span id="berat-total">-</span></span>
+                                <span class="">Berat Total : <span id="berat-total">-</span> Kg</span>
                             </div>
                         </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary btn-sm">Simpan <i class="fas fa-save ms-1"></i></button>
+                        <div class="col-lg-12 mt-3 d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary btn-sm mx-2" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" name="add-sampah" class="btn btn-primary btn-sm">Simpan <i class="fas fa-save ms-1"></i></button>
+                        </div>
+                    </div>
                 </div>
                 </form>
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="detailSampah" tabindex="-1" aria-labelledby="detailSampahLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="detailSampahLabel">Detail Sampah</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form class="needs-validation form-contact-me" novalidate>
-                        <div class="form-row">
-                            <div class="form-floating mb-3">
-                                <input type="date" class="form-control user-input" value="2021-10-08" id="tanggal" required placeholder="Tanggal Input" readonly>
-                                <label class="title-column" for="tanggal">Tanggal Input</label>
-                                <div class="valid-feedback">
-                                    Yeay! Great
-                                </div>
-                                <div class="invalid-feedback">
-                                    Oh No! Required to Fill
-                                </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <select class="form-select" required disabled>
-                                    <option>Kategori Sampah</option>
-                                    <option disabled selected="selected">Organik</option>
-                                    <option>Anorganik</option>
-                                </select>
-                                <div class="valid-feedback">
-                                    Yeay! Great
-                                </div>
-                                <div class="invalid-feedback">
-                                    Oh No! Required to Fill
-                                </div>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="number" value="5" readonly class="form-control user-input" id="berat" required placeholder="berat">
-                                <label class="title-column" for="berat">Berat Sampah</label>
-                                <small class="text-primary fw-bold">Dalam Satuan Kg</small>
-                                <div class="valid-feedback">
-                                    Good Job!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Oh No! Required to Fill
-                                </div>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <textarea class="form-control user-input" readonly placeholder="deskripsi" id="" style="height: 160px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas accusantium provident ex nesciunt quis nemo, fugiat labore nostrum? Modi quidem officiis cum! Explicabo perferendis eveniet quae et voluptatem! Sapiente, animi.</textarea>
-                                <label class="title-column" for="deskripsi">Deskripsi</label>
-                                <div class="valid-feedback">
-                                    Good Job!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Oh No! Required to Fill
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="editSampah" tabindex="-1" aria-labelledby="editSampahLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editSampahLabel">Edit Sampah</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form class="needs-validation form-contact-me" novalidate>
-                        <div class="form-row">
-                            <div class="form-floating mb-3">
-                                <input type="date" class="form-control user-input" value="2021-10-08" id="tanggal" required placeholder="Tanggal Input">
-                                <label class="title-column" for="tanggal">Tanggal Input</label>
-                                <div class="valid-feedback">
-                                    Yeay! Great
-                                </div>
-                                <div class="invalid-feedback">
-                                    Oh No! Required to Fill
-                                </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <select class="form-select" required>
-                                    <option value="" disabled>Kategori Sampah</option>
-                                    <option value="1" selected>Organik</option>
-                                    <option value="2">Anorganik</option>
-                                </select>
-                                <div class="valid-feedback">
-                                    Yeay! Great
-                                </div>
-                                <div class="invalid-feedback">
-                                    Oh No! Required to Fill
-                                </div>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="number" value="5" class="form-control user-input" id="berat" required placeholder="berat">
-                                <label class="title-column" for="berat">Berat Sampah</label>
-                                <small class="text-primary fw-bold">Dalam Satuan Kg</small>
-                                <div class="valid-feedback">
-                                    Good Job!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Oh No! Required to Fill
-                                </div>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <textarea class="form-control user-input" placeholder="deskripsi" id="" style="height: 160px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas accusantium provident ex nesciunt quis nemo, fugiat labore nostrum? Modi quidem officiis cum! Explicabo perferendis eveniet quae et voluptatem! Sapiente, animi.</textarea>
-                                <label class="title-column" for="deskripsi">Deskripsi</label>
-                                <div class="valid-feedback">
-                                    Good Job!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Oh No! Required to Fill
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary btn-sm">Simpan <i class="fas fa-save ms-1"></i></button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
+
+    <?php
+    if (isset($_POST['add-sampah'])) {
+        $id_warga = $_POST['id-warga'];
+        $id_admin = $_POST['id-admin'];
+        $tanggal_input = $_POST['tgl-input'];
+        $klasifikasi = $_POST['klasifikasi-sampah'];
+        $kategori = $_POST['nama-kategori'];
+        $berat_kategori = $_POST['berat-kategori'];
+        $berat_total = $_POST['value-berat-total'];
+        $id_kategori = 1;
+
+        $url1 = "http://116.193.190.156/waste-api/dataSampah";
+        $url2 = "http://116.193.190.156/waste-api/kategori";
+
+        $data1 = array(
+            'id_warga' => $id_warga,
+            'tanggal' => $tanggal_input,
+            'berat_total' => $berat_total,
+            'id_admin' => $id_admin,
+            'id_kategori_sampah' => 1,
+            'berat_total_kategori' => 20,
+            'id_kategori_sampah2' => 2,
+            'berat_total_kategori2' => 20,
+            'id_kategori_sampah3' => 3,
+            'berat_total_kategori3' => 20,
+            'id_kategori_sampah4' => 4,
+            'berat_total_kategori4' => 20,
+            'id_kategori_sampah5' => 5,
+            'berat_total_kategori5' => 20,
+        );
+
+        $data2 = array(
+            'name_kategori' => $kategori,
+            'klasifikasi' => $klasifikasi,
+        );
+
+        $postvars = http_build_query($data1) . "\n";
+        $postvars2 = http_build_query($data2) . "\n";
+
+        $ch = curl_init($url1);
+        $ch2 = curl_init($url2);
+        curl_setopt($ch, CURLOPT_URL, $url1);
+        curl_setopt($ch2, CURLOPT_URL, $url2);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch2, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
+        curl_setopt($ch2, CURLOPT_POSTFIELDS, $postvars2);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec($ch);
+        $server_output = curl_exec($ch2);
+
+        curl_close($ch);
+        curl_close($ch2);
+        // header("Refresh:0; url=admin.php");
+        echo "<script>alert('Data Berhasil Disimpan !!!'); window.location='sampah.php';</script>";
+    }
+    ?>
+
+    <?php
+    if (isset($_POST['edit-sampah'])) {
+        $id_warga = $_POST['id-warga'];
+        $id_admin = $_POST['id-admin'];
+        $tanggal_input = $_POST['tgl-input'];
+        $klasifikasi = $_POST['klasifikasi-sampah'];
+        $kategori = $_POST['nama-kategori'];
+        $berat_kategori = $_POST['berat-kategori'];
+        $berat_total = $_POST['value-berat-total'];
+        $id_kategori = 1;
+
+        $url1 = "http://116.193.190.156/waste-api/dataSampah";
+        $url2 = "http://116.193.190.156/waste-api/kategori";
+
+        $data1 = array(
+            'id_warga' => $id_warga,
+            'tanggal' => $tanggal_input,
+            'berat_total' => $berat_total,
+            'id_admin' => $id_admin,
+            'id_kategori_sampah' => 1,
+            'berat_total_kategori' => 20,
+            'id_kategori_sampah2' => 2,
+            'berat_total_kategori2' => 20,
+            'id_kategori_sampah3' => 3,
+            'berat_total_kategori3' => 20,
+            'id_kategori_sampah4' => 4,
+            'berat_total_kategori4' => 20,
+            'id_kategori_sampah5' => 5,
+            'berat_total_kategori5' => 20,
+        );
+
+        $data2 = array(
+            'name_kategori' => $kategori,
+            'klasifikasi' => $klasifikasi,
+        );
+
+        $postvars = http_build_query($data1) . "\n";
+        $postvars2 = http_build_query($data2) . "\n";
+
+        $ch = curl_init($url1);
+        $ch2 = curl_init($url2);
+        curl_setopt($ch, CURLOPT_URL, $url1);
+        curl_setopt($ch2, CURLOPT_URL, $url2);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch2, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
+        curl_setopt($ch2, CURLOPT_POSTFIELDS, $postvars2);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec($ch);
+        $server_output = curl_exec($ch2);
+
+        curl_close($ch);
+        curl_close($ch2);
+        // header("Refresh:0; url=admin.php");
+        echo "<script>alert('Data Berhasil Disimpan !!!'); window.location='sampah.php';</script>";
+    }
+    ?>
 
     <script>
         // Bootstrap Form Validation
