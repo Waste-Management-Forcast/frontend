@@ -164,107 +164,112 @@
                                         <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Tanggal Input</th>
-                                            <th scope="col">Klasifikasi</th>
+                                            <th scope="col">Nama Kepala Keluarga</th>
                                             <th scope="col">Berat Total Sampah</th>
                                             <th scope="col" class="text-center" width="200">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th>1</th>
-                                            <td>
-                                                23 Oktober 2021
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-primary">Organik</span>
-                                            </td>
-                                            <td>
-                                                65 Kg
-                                            </td>
-                                            <td class="text-center">
-                                                <button type="button" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#editSampah">
-                                                    <i class="fa fa-pen mt-1"></i>
-                                                </button>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="editSampah" tabindex="-1" aria-labelledby="editSampahLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-scrollable">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="editSampahLabel">Edit Sampah</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <?php
+                                        $url = "http://116.193.190.156/waste-api/dataSampah";
+                                        $obj = json_decode(file_get_contents($url), true);
+                                        // echo var_dump($obj);
+                                        // die;
+                                        $i = 1;
+                                        foreach ($obj["data"] as $arr) { ?>
+                                            <tr>
+                                                <th><?= $i++; ?></th>
+                                                <td>
+                                                    <?= $obj['tanggal']; ?>
+                                                </td>
+                                                <td>
+                                                    <?= $obj['warga']['nama_kepala_keluarga']; ?>
+                                                </td>
+                                                <td>
+                                                    <?= $obj['berat_total']; ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#editSampah<?= $obj['id_sampah']; ?>">
+                                                        <i class="fa fa-pen mt-1"></i>
+                                                    </button>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="editSampah<?= $obj['id_sampah']; ?>" tabindex="-1" aria-labelledby="editSampahLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-scrollable">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="editSampahLabel">Edit Sampah</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form class="needs-validation form-contact-me" novalidate>
+                                                                        <div class="form-row">
+                                                                            <div class="input-group mb-3">
+                                                                                <select class="form-select" name="id-warga" required>
+                                                                                    <option value="" disabled selected>Nama Kepala Keluarga</option>
+                                                                                    <?php
+                                                                                    $url1 = $url . '/' . $arr['id_sampah'];
+                                                                                    $obj1 = json_decode(file_get_contents($url1), true);
+                                                                                    // echo var_dump($obj1["data"][0]["nama_admin"]);
+                                                                                    $i = 1;
+                                                                                    foreach ($obj1["data"] as $arr) { ?>
+                                                                                        <option value="<?= $arr['id_warga']; ?>" <?= $obj['warga']['nama_kepala_keluarga'] == $arr['nama_kepala_keluarga'] ? 'selected' : ''; ?>><?= $arr['nama_kepala_keluarga']; ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                                <div class="valid-feedback">
+                                                                                    Yeay! Great
+                                                                                </div>
+                                                                                <div class="invalid-feedback">
+                                                                                    Oh No! Required to Fill
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="input-group mb-3">
+                                                                                <select class="form-select" name="id-admin" required>
+                                                                                    <option value="" disabled selected>Nama Admin</option>
+                                                                                    <?php
+                                                                                    $url = "http://116.193.190.156/waste-api/admin";
+                                                                                    $obj = json_decode(file_get_contents($url), true);
+                                                                                    // echo var_dump($obj["data"][0]["nama_admin"]);
+                                                                                    $i = 1;
+                                                                                    foreach ($obj["data"] as $arr) { ?>
+                                                                                        <option value="<?= $arr['id_admin']; ?>" <?= $obj['admin']['nama_admin'] == $arr['nama_admin'] ? 'selected' : ''; ?>><?= $arr['nama_admin']; ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                                <div class="valid-feedback">
+                                                                                    Yeay! Great
+                                                                                </div>
+                                                                                <div class="invalid-feedback">
+                                                                                    Oh No! Required to Fill
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-floating mb-4">
+                                                                                <input type="date" class="form-control user-input" name="tgl-input" id="tanggal" required placeholder="Tanggal Input" value="<?= $obj['tanggal']; ?>">
+                                                                                <input type="hidden" name="value-berat-total" id="value-berat-total">
+                                                                                <label class="title-column" for="tanggal">Tanggal Input</label>
+                                                                                <div class="valid-feedback">
+                                                                                    Yeay! Great
+                                                                                </div>
+                                                                                <div class="invalid-feedback">
+                                                                                    Oh No! Required to Fill
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
+                                                                    <button type="submit" name="edit-sampah" class="btn btn-primary btn-sm">Simpan <i class="fas fa-save ms-1"></i></button>
+                                                                </div>
+                                                                </form>
                                                             </div>
-                                                            <div class="modal-body">
-                                                                <form class="needs-validation form-contact-me" novalidate>
-                                                                    <div class="form-row">
-                                                                        <div class="input-group mb-3">
-                                                                            <select class="form-select" name="id-warga" required>
-                                                                                <option value="" disabled selected>Nama Kepala Keluarga</option>
-                                                                                <?php
-                                                                                $url = "http://116.193.190.156/waste-api/warga";
-                                                                                $obj = json_decode(file_get_contents($url), true);
-                                                                                // echo var_dump($obj["data"][0]["nama_admin"]);
-                                                                                $i = 1;
-                                                                                foreach ($obj["data"] as $arr) { ?>
-                                                                                    <option value="<?= $arr['id_warga']; ?>"><?= $arr['nama_kepala_keluarga']; ?></option>
-                                                                                <?php } ?>
-                                                                            </select>
-                                                                            <div class="valid-feedback">
-                                                                                Yeay! Great
-                                                                            </div>
-                                                                            <div class="invalid-feedback">
-                                                                                Oh No! Required to Fill
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="input-group mb-3">
-                                                                            <select class="form-select" name="id-admin" required>
-                                                                                <option value="" disabled selected>Nama Admin</option>
-                                                                                <?php
-                                                                                $url = "http://116.193.190.156/waste-api/admin";
-                                                                                $obj = json_decode(file_get_contents($url), true);
-                                                                                // echo var_dump($obj["data"][0]["nama_admin"]);
-                                                                                $i = 1;
-                                                                                foreach ($obj["data"] as $arr) { ?>
-                                                                                    <option value="<?= $arr['id_admin']; ?>"><?= $arr['nama_admin']; ?></option>
-                                                                                <?php } ?>
-                                                                            </select>
-                                                                            <div class="valid-feedback">
-                                                                                Yeay! Great
-                                                                            </div>
-                                                                            <div class="invalid-feedback">
-                                                                                Oh No! Required to Fill
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="form-floating mb-4">
-                                                                            <input type="date" class="form-control user-input" name="tgl-input" id="tanggal" required placeholder="Tanggal Input">
-                                                                            <input type="hidden" name="value-berat-total" id="value-berat-total">
-                                                                            <label class="title-column" for="tanggal">Tanggal Input</label>
-                                                                            <div class="valid-feedback">
-                                                                                Yeay! Great
-                                                                            </div>
-                                                                            <div class="invalid-feedback">
-                                                                                Oh No! Required to Fill
-                                                                            </div>
-                                                                        </div>
-                                                                        <hr>
-                                                                        <div class="container px-2" id="area-tambah-kategori">
-
-                                                                        </div>
-                                                                    </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
-                                                                <button type="submit" class="btn btn-primary btn-sm">Simpan <i class="fas fa-save ms-1"></i></button>
-                                                            </div>
-                                                            </form>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <button type="button" class="btn btn-danger btn-sm m-1">
-                                                    <i class="fa fa-trash mt-1"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                                    <button type="button" name="delete-sampah" value="<?= $arr['id_sampah']; ?>" class="btn btn-danger btn-sm m-1">
+                                                        <i class="fa fa-trash mt-1"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -482,6 +487,26 @@
         curl_close($ch2);
         // header("Refresh:0; url=admin.php");
         echo "<script>alert('Data Berhasil Disimpan !!!'); window.location='sampah.php';</script>";
+    }
+    ?>
+
+    <?php
+    if (isset($_POST['delete-sampah'])) {
+        $id_sampah = $_POST['delete-sampah'];
+
+        $url = "http://116.193.190.156/waste-api/dataSampah/" . $id_sampah;
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        $result = json_decode($result);
+        curl_close($ch);
+
+        // header("Refresh:0; url=admin.php");
+        echo "<script>alert('Data Berhasil Dihapus !!!'); window.location='admin.php';</script>";
     }
     ?>
 
