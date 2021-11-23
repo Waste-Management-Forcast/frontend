@@ -180,20 +180,23 @@
                                             <tr>
                                                 <th><?= $i++; ?></th>
                                                 <td>
-                                                    <?= $obj['tanggal']; ?>
+                                                    <?php
+                                                    $date = date_create($arr['tanggal']);
+                                                    echo date_format($date, "d M Y");
+                                                    ?>
                                                 </td>
                                                 <td>
-                                                    <?= $obj['warga']['nama_kepala_keluarga']; ?>
+                                                    <?= $arr['warga']['nama_kepala_keluarga']; ?>
                                                 </td>
                                                 <td>
-                                                    <?= $obj['berat_total']; ?>
+                                                    <?= $arr['berat_total']; ?>
                                                 </td>
                                                 <td class="text-center">
                                                     <button type="button" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#editSampah<?= $obj['id_sampah']; ?>">
                                                         <i class="fa fa-pen mt-1"></i>
                                                     </button>
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="editSampah<?= $obj['id_sampah']; ?>" tabindex="-1" aria-labelledby="editSampahLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="editSampah<?= $arr['id_sampah']; ?>" tabindex="-1" aria-labelledby="editSampahLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-scrollable">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
