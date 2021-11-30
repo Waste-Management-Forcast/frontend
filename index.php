@@ -1,22 +1,65 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
 
-$request = $_SERVER['REQUEST_URI'];
+<head>
+    <title>Login Admin Panel Waste Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="aset-login/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="aset-login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="aset-login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="aset-login/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="aset-login/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="aset-login/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="aset-login/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="aset-login/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="aset-login/css/util.css">
+    <link rel="stylesheet" type="text/css" href="aset-login/css/main.css">
+</head>
 
-echo $request;
-require "admin/admin.php";
+<body>
 
-switch ($request) {
-    case '/':
-        require __DIR__ . "login/login.html";
-        break;
-    case '/view-admin':
-        require "admin/admin.php";
-        break;
-    case '/user':
-        require "user/dashboard-user.html";
-        break;
-    default:
-        http_response_code(404);
-        echo "404";
-        break;
-}
+    <div class="limiter">
+        <div class="container-login100" style="background-image: url('images/bg-login.jpg');">
+            <div class="wrap-login100 p-t-30 p-b-50">
+                <span class="login100-form-title p-b-41">
+                    Waste Management Forecast
+                </span>
+                <form class="login100-form validate-form p-b-33 p-t-5" action="../user/dashboard-user.html">
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter username">
+                        <input class="input100" type="text" autocomplete="off" name="username" placeholder="Username">
+                        <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        <input class="input100" type="password" name="pass" placeholder="Password">
+                        <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn m-t-32">
+                        <a class="login100-form-btn" href="admin/dashboard-admin.html">
+                            Login
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="dropDownSelect1"></div>
+
+    <script src="aset-login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="aset-login/vendor/animsition/js/animsition.min.js"></script>
+    <script src="aset-login/vendor/bootstrap/js/popper.js"></script>
+    <script src="aset-login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="aset-login/vendor/select2/select2.min.js"></script>
+    <script src="aset-login/vendor/daterangepicker/moment.min.js"></script>
+    <script src="aset-login/vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="aset-login/vendor/countdowntime/countdowntime.js"></script>
+    <script src="aset-login/js/main.js"></script>
+
+</body>
+
+</html>
