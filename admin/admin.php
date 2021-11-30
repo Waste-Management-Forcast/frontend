@@ -84,10 +84,11 @@
                         <i class="fas fa-dumpster fa-2x"></i></span><span class="pc-mtext">Sampah</span><span class="pc-arrow"></span></a> -->
                     <li class="pc-item pc-hasmenu">
                         <a href="#!" class="pc-link "><span class="pc-micon">
-                                <i class="fas fa-users fa-2x"></i></span><span class="pc-mtext">User Management</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+                                <i class="fas fa-users fa-2x"></i></span><span class="pc-mtext">Data Management</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
                         <ul class="pc-submenu">
                             <a class="pc-link" href="user.php"><i class="fas fa-user mx-1"></i> User</a>
                             <a class="pc-link" href="admin.php"><i class="fas fa-user-edit mx-1"></i> Admin</a>
+                            <a class="pc-link" href="sampah.php"><i class="fas fa-folder mx-1"></i> Data Sampah</a>
                         </ul>
                     </li>
                 </ul>
@@ -109,7 +110,7 @@
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
-                            <a href="auth-signin.html" class="dropdown-item">
+                            <a href="../index.php" class="dropdown-item">
                                 <i class="fa fa-sign-out-alt"></i>
                                 <span>Logout</span>
                             </a>
