@@ -137,6 +137,9 @@
                                     <button type="button" class="btn btn-primary btn-sm mb-3 ms-auto" data-bs-toggle="modal" data-bs-target="#tambahSampah">
                                         Tambah Sampah <i class="fa fa-plus mx-1"></i>
                                     </button>
+                                    <button type="button" class="btn btn-warning btn-sm mb-3 ms-auto" data-bs-toggle="modal" data-bs-target="#tambahKategori">
+                                        Tambah Kategori <i class="fa fa-filter mx-1"></i>
+                                    </button>
                                 </div>
                             </div>
                             <div class="row mb-1">
@@ -183,11 +186,10 @@
                                     $obj = json_decode(file_get_contents($url), true);
                                     // echo var_dump($obj);
                                     // die;
-                                    $i = 0;
+                                    $z = 1;
                                     foreach ($obj["data"] as $arr) { ?>
                                         <tbody>
                                             <tr>
-                                                <!-- <th><?= ++$i; ?></th> -->
                                                 <td>
                                                     <?php
                                                     $date = date_create($arr['tanggal']);
@@ -202,7 +204,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <form action="" method="POST">
-                                                        <button type="submit" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#editSampah<?= $obj['id_sampah']; ?>">
+                                                        <button type="button" id="buttoneditsampah" data-id="<?= $arr['id_sampah']; ?>" class="btn btn-primary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#editSampah<?= $arr['id_sampah']; ?>">
                                                             <i class="fa fa-pen mt-1"></i>
                                                         </button>
                                                         <button type="submit" name="delete-sampah" value="<?= $arr['id_sampah']; ?>" class="btn btn-danger btn-sm m-1">
@@ -218,19 +220,19 @@
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form class="needs-validation form-contact-me" novalidate>
+                                                                    <form class="needs-validation form-contact-me" novalidate action="" method="POST">
                                                                         <div class="form-row">
                                                                             <div class="input-group mb-3">
-                                                                                <select class="form-select" name="id-warga" required>
+                                                                                <select class="form-select" name="id_warga<?= $arr['id_sampah']; ?>" required>
                                                                                     <option value="" disabled selected>Nama Kepala Keluarga</option>
                                                                                     <?php
-                                                                                    $url1 = $url . '/' . $arr['id_sampah'];
-                                                                                    $obj1 = json_decode(file_get_contents($url1), true);
-                                                                                    // echo var_dump($obj1["data"][0]["nama_admin"]);
-                                                                                    $i = 1;
-                                                                                    foreach ($obj1["data"] as $arr) { ?>
-                                                                                        <option value="<?= $arr['id_warga']; ?>" <?= $obj['warga']['nama_kepala_keluarga'] == $arr['nama_kepala_keluarga'] ? 'selected' : ''; ?>><?= $arr['nama_kepala_keluarga']; ?></option>
-                                                                                    <?php } ?>
+                                                                                    $url = "http://116.193.190.156/waste-api/warga";
+                                                                                    $obj = json_decode(file_get_contents($url), true);
+
+                                                                                    foreach ($obj['data'] as $item) :
+                                                                                    ?>
+                                                                                        <option value="<?= $item['id_warga']; ?>" <?= $arr['warga']['nama_kepala_keluarga'] == $item['nama_kepala_keluarga'] ? 'selected' : '' ?>><?= $item['nama_kepala_keluarga']; ?></option>
+                                                                                    <?php endforeach; ?>
                                                                                 </select>
                                                                                 <div class="valid-feedback">
                                                                                     Yeay! Great
@@ -240,15 +242,17 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="input-group mb-3">
-                                                                                <select class="form-select" name="id-admin" required>
+                                                                                <select class="form-select" name="id_admin<?= $arr['id_sampah']; ?>" required>
                                                                                     <option value="" disabled selected>Nama Admin</option>
                                                                                     <?php
                                                                                     $url = "http://116.193.190.156/waste-api/admin";
                                                                                     $obj = json_decode(file_get_contents($url), true);
+                                                                                    $url2 = "http://116.193.190.156/waste-api/dataSampah/" . $arr['id_sampah'];
+                                                                                    $obj2 = json_decode(file_get_contents($url2), true);
                                                                                     // echo var_dump($obj["data"][0]["nama_admin"]);
                                                                                     $i = 1;
-                                                                                    foreach ($obj["data"] as $arr) { ?>
-                                                                                        <option value="<?= $arr['id_admin']; ?>" <?= $obj['admin']['nama_admin'] == $arr['nama_admin'] ? 'selected' : ''; ?>><?= $arr['nama_admin']; ?></option>
+                                                                                    foreach ($obj["data"] as $item) { ?>
+                                                                                        <option value="<?= $item['id_admin']; ?>" <?= $item['nama_admin'] == $obj2['data']['admin']['nama_admin'] ? 'selected' : ''; ?>><?= $item['nama_admin']; ?></option>
                                                                                     <?php } ?>
                                                                                 </select>
                                                                                 <div class="valid-feedback">
@@ -259,9 +263,10 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-floating mb-4">
-                                                                                <input type="date" class="form-control user-input" name="tgl-input" id="tanggal" required placeholder="Tanggal Input" value="<?= $obj['tanggal']; ?>">
-                                                                                <input type="hidden" name="value-berat-total" id="value-berat-total">
-                                                                                <label class="title-column" for="tanggal">Tanggal Input</label>
+                                                                                <input type="date" class="form-control user-input" name="tgl_input<?= $arr['id_sampah']; ?>" id="tanggal" required placeholder="Tanggal Input" value="<?= date_format(date_create($arr['tanggal']), "Y-m-d"); ?>">
+                                                                                <label class="title-column" for="tanggal">
+                                                                                    Tanggal Input
+                                                                                </label>
                                                                                 <div class="valid-feedback">
                                                                                     Yeay! Great
                                                                                 </div>
@@ -270,11 +275,54 @@
                                                                                 </div>
                                                                             </div>
                                                                             <hr>
+                                                                            <?php
+                                                                            $url = "http://116.193.190.156/waste-api/dataSampah/" . $arr['id_sampah'];
+                                                                            $obj = json_decode(file_get_contents($url), true);
+                                                                            $j = 1;
+                                                                            foreach ($obj['data']['detail_sampah'] as $item) :
+                                                                            ?>
+                                                                                <div class="card">
+                                                                                    <div class="card-body">
+                                                                                        <div class="input-group mb-3 mt-3">
+                                                                                            <select class="form-select" required name="<?= $arr['id_sampah']; ?>edit_id_kategori_<?= $j; ?>" id="klasifikasi-sampah">
+                                                                                                <option value="" disabled selected>Klasifikasi Sampah</option>
+                                                                                                <?php
+                                                                                                $url = "http://116.193.190.156/waste-api/kategori";
+                                                                                                $obj = json_decode(file_get_contents($url), true);
+                                                                                                foreach ($obj["data"] as $i) { ?>
+                                                                                                    <option value="<?= $i['id_kategori_sampah']; ?>" <?= $i['name_kategori'] == $item['kategori_sampah']['name_kategori'] ? 'selected' : ''; ?>><?= $i['name_kategori']; ?></option>
+                                                                                                <?php } ?>
+                                                                                            </select>
+                                                                                            <div class="valid-feedback">
+                                                                                                Yeay! Great
+                                                                                            </div>
+                                                                                            <div class="invalid-feedback">
+                                                                                                Oh No! Required to Fill
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="form-floating mb-4">
+                                                                                            <input type="number" data-name="berat_kategori_edit<?= $arr['id_sampah']; ?>" name="<?= $arr['id_sampah']; ?>edit_berat_kategori_<?= $j++; ?>" class="form-control form-floating-sm user-input berat-edit<?= $arr['id_sampah']; ?>" min="1" id="<?= $item['kategori_sampah']['id_kategori_sampah']; ?>" data-id="<?= $item['kategori_sampah']['id_kategori_sampah']; ?>" required placeholder="berat" value="<?= $item['berat_total_kategori']; ?>">
+                                                                                            <label class="title-column" for="berat">Berat Sampah Kategori</label>
+                                                                                            <small class="text-primary fw-bold">Dalam Satuan Kg</small>
+                                                                                            <div class="valid-feedback">
+                                                                                                Good Job!
+                                                                                            </div>
+                                                                                            <div class="invalid-feedback">
+                                                                                                Oh No! Required to Fill
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            <?php endforeach; ?>
                                                                         </div>
                                                                 </div>
                                                                 <div class="modal-footer">
+                                                                    <input type="hidden" name="value-berat-total-edit<?= $arr['id_sampah']; ?>" id="value-berat-total-edit<?= $arr['id_sampah']; ?>">
+                                                                    <span class="">Berat Total : <span id="berat-total-edit<?= $arr['id_sampah']; ?>">-</span> Kg</span>
+                                                                    <input type="hidden" id="berat_total" name="berat_total" data-id="" value="0">
                                                                     <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
-                                                                    <button type="submit" name="edit-sampah" class="btn btn-primary btn-sm">Simpan <i class="fas fa-save ms-1"></i></button>
+                                                                    <button type="submit" name="edit-sampah<?= $arr['id_sampah']; ?>" value="<?= $arr['id_sampah']; ?>" class="btn btn-primary btn-sm">Simpan <i class="fas fa-save ms-1"></i></button>
                                                                 </div>
                                                                 </form>
                                                             </div>
@@ -306,7 +354,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="needs-validation form-contact-me" action="" method="POST" novalidate>
+                    <form class="needs-validation form-contact-me" id="formtambahsampah" action="" method="POST" novalidate>
                         <div class="form-row">
                             <div class="input-group mb-3">
                                 <select class="form-select" name="id_warga" required>
@@ -346,7 +394,7 @@
                             </div>
                             <div class="form-floating mb-4">
                                 <input type="date" class="form-control user-input" name="tgl_input" id="tanggal" required placeholder="Tanggal Input">
-                                <input type="hidden" name="value-berat-total" id="value-berat-total">
+                                <input type="hidden" name="value-berat-total-add" id="value-berat-total-add">
                                 <label class="title-column" for="tanggal">Tanggal Input</label>
                                 <div class="valid-feedback">
                                     Yeay! Great
@@ -357,6 +405,9 @@
                             </div>
                             <hr>
                             <div class="container px-2" id="area-tambah-kategori">
+
+                            </div>
+                            <div class="hidden-berat-kategori">
 
                             </div>
                         </div>
@@ -372,7 +423,59 @@
                         </div>
                         <div class="col-lg-12 mt-3 d-flex justify-content-end">
                             <button type="button" class="btn btn-secondary btn-sm mx-2" data-bs-dismiss="modal">Tutup</button>
-                            <button type="submit" name="add-sampah" class="btn btn-primary btn-sm">Simpan <i class="fas fa-save ms-1"></i></button>
+                            <button type="submit" name="add-sampah" id="add-sampah" class="btn btn-primary btn-sm">Simpan <i class="fas fa-save ms-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="tambahKategori" tabindex="-1" aria-labelledby="tambahKategoriLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tambahKategoriLabel">Tambah Kategori</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="needs-validation form-contact-me" action="" method="POST" novalidate>
+                        <div class="form-row">
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control user-input" name="nama_kategori" id="kategori" placeholder="Nama Kategori" required>
+                                <label class="title-column" for="kategori">Nama Kategori</label>
+                                <div class="valid-feedback">
+                                    Yeay! Great
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <select class="form-select" name="klasifikasi" required>
+                                    <option value="" disabled selected>Klasifikasi</option>
+                                    <option value="Organik">Organik</option>
+                                    <option value="Anorganik">Anorganik</option>
+                                    <option value="B3">B3</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Yeay! Great
+                                </div>
+                                <div class="invalid-feedback">
+                                    Oh No! Required to Fill
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-lg-12 mt-3 d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary btn-sm mx-2" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" name="add-kategori" class="btn btn-primary btn-sm">Simpan <i class="fas fa-save ms-1"></i></button>
                         </div>
                     </div>
                 </div>
@@ -382,47 +485,80 @@
     </div>
 
     <?php
+    if (isset($_POST['add-kategori'])) {
+        $kategori = $_POST['nama_kategori'];
+        $klasifikasi = $_POST['klasifikasi'];
+
+        $url = "http://116.193.190.156/waste-api/kategori";
+
+        $data = array(
+            'name_kategori' => $kategori,
+            'klasifikasi' => $klasifikasi,
+            'jenis' => '',
+            'contoh' => '',
+            'deskripsi' => '',
+        );
+
+        $postvars = http_build_query($data) . "\n";
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec($ch);
+
+        curl_close($ch);
+        // header("Refresh:0; url=admin.php");
+        echo "<script>alert('Data Berhasil Disimpan !!!'); window.location='sampah.php';</script>";
+    }
+    ?>
+
+
+    <?php
     if (isset($_POST['add-sampah'])) {
         $id_warga = $_POST['id_warga'];
         $id_admin = $_POST['id_admin'];
         $date = $_POST['tgl_input'];
-        $berat_total = $_POST['berat_total'];
+        $berat_total = $_POST['value-berat-total-add'];
 
         //kategori 1
-        $id_kategori_1 = $_POST['id_kategori_1'];
-        $berat_kategori_1 = $_POST['berat_kategori_1'];
+        $id_kategori_1 = $_POST['value_id_kategori_1'];
+        $berat_kategori_1 = $_POST['value_berat_kategori_1'];
 
         //kategori 2
-        if (isset($_POST['id_kategori_2'])) {
-            $id_kategori_2 = $_POST['id_kategori_2'];
-            $berat_kategori_2 = $_POST['berat_kategori_2'];
+        if (isset($_POST['value_id_kategori_2'])) {
+            $id_kategori_2 = $_POST['value_id_kategori_2'];
+            $berat_kategori_2 = $_POST['value_berat_kategori_2'];
         } else {
             $id_kategori_2 = '';
             $berat_kategori_2 = '';
         }
 
         //kategori 3
-        if (isset($_POST['id_kategori_3'])) {
-            $id_kategori_3 = $_POST['id_kategori_3'];
-            $berat_kategori_3 = $_POST['berat_kategori_3'];
+        if (isset($_POST['value_id_kategori_3'])) {
+            $id_kategori_3 = $_POST['value_id_kategori_3'];
+            $berat_kategori_3 = $_POST['value_berat_kategori_3'];
         } else {
             $id_kategori_3 = '';
             $berat_kategori_3 = '';
         }
 
         //kategori 4
-        if (isset($_POST['id_kategori_4'])) {
-            $id_kategori_4 = $_POST['id_kategori_4'];
-            $berat_kategori_4 = $_POST['berat_kategori_4'];
+        if (isset($_POST['value_id_kategori_4'])) {
+            $id_kategori_4 = $_POST['value_id_kategori_4'];
+            $berat_kategori_4 = $_POST['value_berat_kategori_4'];
         } else {
             $id_kategori_4 = '';
             $berat_kategori_4 = '';
         }
 
         //kategori 5
-        if (isset($_POST['id_kategori_5'])) {
-            $id_kategori_5 = $_POST['id_kategori_5'];
-            $berat_kategori_5 = $_POST['berat_kategori_5'];
+        if (isset($_POST['value_id_kategori_5'])) {
+            $id_kategori_5 = $_POST['value_id_kategori_5'];
+            $berat_kategori_5 = $_POST['value_berat_kategori_5'];
         } else {
             $id_kategori_5 = '';
             $berat_kategori_5 = '';
@@ -465,63 +601,92 @@
     ?>
 
     <?php
-    if (isset($_POST['edit-sampah'])) {
-        $id_warga = $_POST['id-warga'];
-        $id_admin = $_POST['id-admin'];
-        $tanggal_input = $_POST['tgl-input'];
-        $klasifikasi = $_POST['klasifikasi-sampah'];
-        $kategori = $_POST['nama-kategori'];
-        $berat_kategori = $_POST['berat-kategori'];
-        $berat_total = $_POST['value-berat-total'];
-        $id_kategori = 1;
+    $url = "http://116.193.190.156/waste-api/dataSampah";
+    $obj = json_decode(file_get_contents($url), true);
+    foreach ($obj['data'] as $arr) {
+        if (isset($_POST['edit-sampah' . $arr['id_sampah']])) {
+            $id_sampah = $_POST['edit-sampah' . $arr['id_sampah']];
+            $id_warga = $_POST['id_warga' . $arr['id_sampah']];
+            $id_admin = $_POST['id_admin' . $arr['id_sampah']];
+            $date = $_POST['tgl_input' . $arr['id_sampah']];
+            $berat_total = $_POST['value-berat-total-edit' . $arr['id_sampah']];
 
-        $url1 = "http://116.193.190.156/waste-api/dataSampah";
-        $url2 = "http://116.193.190.156/waste-api/kategori";
+            //kategori 1
+            $id_kategori_1 = $_POST[$arr['id_sampah'] . 'edit_id_kategori_1'];
+            $berat_kategori_1 = $_POST[$arr['id_sampah'] . 'edit_berat_kategori_1'];
 
-        $data1 = array(
-            'id_warga' => $id_warga,
-            'tanggal' => $tanggal_input,
-            'berat_total' => $berat_total,
-            'id_admin' => $id_admin,
-            'id_kategori_sampah' => 1,
-            'berat_total_kategori' => 20,
-            'id_kategori_sampah2' => 2,
-            'berat_total_kategori2' => 20,
-            'id_kategori_sampah3' => 3,
-            'berat_total_kategori3' => 20,
-            'id_kategori_sampah4' => 4,
-            'berat_total_kategori4' => 20,
-            'id_kategori_sampah5' => 5,
-            'berat_total_kategori5' => 20,
-        );
+            //kategori 2
+            if (isset($_POST[$arr['id_sampah'] . 'edit_id_kategori_2'])) {
+                $id_kategori_2 = $_POST[$arr['id_sampah'] . 'edit_id_kategori_2'];
+                $berat_kategori_2 = $_POST[$arr['id_sampah'] . 'edit_berat_kategori_2'];
+            } else {
+                $id_kategori_2 = '';
+                $berat_kategori_2 = '';
+            }
 
-        $data2 = array(
-            'name_kategori' => $kategori,
-            'klasifikasi' => $klasifikasi,
-        );
+            //kategori 3
+            if (isset($_POST[$arr['id_sampah'] . 'edit_id_kategori_3'])) {
+                $id_kategori_3 = $_POST[$arr['id_sampah'] . 'edit_id_kategori_3'];
+                $berat_kategori_3 = $_POST[$arr['id_sampah'] . 'edit_berat_kategori_3'];
+            } else {
+                $id_kategori_3 = '';
+                $berat_kategori_3 = '';
+            }
 
-        $postvars = http_build_query($data1) . "\n";
-        $postvars2 = http_build_query($data2) . "\n";
+            //kategori 4
+            if (isset($_POST[$arr['id_sampah'] . 'edit_id_kategori_4'])) {
+                $id_kategori_4 = $_POST[$arr['id_sampah'] . 'edit_id_kategori_4'];
+                $berat_kategori_4 = $_POST[$arr['id_sampah'] . 'edit_berat_kategori_4'];
+            } else {
+                $id_kategori_4 = '';
+                $berat_kategori_4 = '';
+            }
 
-        $ch = curl_init($url1);
-        $ch2 = curl_init($url2);
-        curl_setopt($ch, CURLOPT_URL, $url1);
-        curl_setopt($ch2, CURLOPT_URL, $url2);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch2, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
-        curl_setopt($ch2, CURLOPT_POSTFIELDS, $postvars2);
+            //kategori 5
+            if (isset($_POST[$arr['id_sampah'] . 'edit_id_kategori_5'])) {
+                $id_kategori_5 = $_POST[$arr['id_sampah'] . 'edit_id_kategori_5'];
+                $berat_kategori_5 = $_POST[$arr['id_sampah'] . 'edit_berat_kategori_5'];
+            } else {
+                $id_kategori_5 = '';
+                $berat_kategori_5 = '';
+            }
 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
+            $url = "http://116.193.190.156/waste-api/dataSampah/" . $id_sampah;
 
-        $server_output = curl_exec($ch);
-        $server_output = curl_exec($ch2);
+            $data = array(
+                'id_warga' => $id_warga,
+                'tanggal' => $date,
+                'berat_total' => $berat_total,
+                'id_admin' => $id_admin,
+                'id_kategori_sampah' => $id_kategori_1,
+                'berat_total_kategori' => $berat_kategori_1,
+                'id_kategori_sampah2' => $id_kategori_2,
+                'berat_total_kategori2' => $berat_kategori_2,
+                'id_kategori_sampah3' => $id_kategori_3,
+                'berat_total_kategori3' => $berat_kategori_3,
+                'id_kategori_sampah4' => $id_kategori_4,
+                'berat_total_kategori4' => $berat_kategori_4,
+                'id_kategori_sampah5' => $id_kategori_5,
+                'berat_total_kategori5' => $berat_kategori_5,
+            );
 
-        curl_close($ch);
-        curl_close($ch2);
-        // header("Refresh:0; url=admin.php");
-        echo "<script>alert('Data Berhasil Disimpan !!!'); window.location='sampah.php';</script>";
+            $json = json_encode($data);
+
+            echo ("<script type='text/javascript'> console.log(" . $json . ");</script>");
+
+            $postvars = http_build_query($data) . "\n";
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
+            $result = curl_exec($ch);
+            $result = json_decode($result);
+            curl_close($ch);
+            // header("Refresh:0; url=admin.php");
+            echo "<script>alert('Data Berhasil Dirubah !!!'); window.location='sampah.php';</script>";
+        }
     }
     ?>
 

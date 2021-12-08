@@ -9,12 +9,13 @@ $obj = json_decode(file_get_contents($url), true);
         $(document).on('click', '#tambah-kategori', function(e) {
             e.preventDefault();
             let id = value++
+
             $('#area-tambah-kategori').append(`
                 <div class="card" id="${id}">
                     <div class="card-body">
                         <i class="fa fa-trash text-danger ms-auto" style="cursor: pointer;" id="hapus-kategori" data-id="${id}"></i>
                         <div class="input-group mb-3 mt-3">
-                            <select class="form-select" required name="id_kategori_${id}" id="klasifikasi-sampah" data-id="${id}">
+                            <select class="form-select" required name="id_kategori" id="klasifikasi-sampah" data-id="${id}">
                                 <option value="" disabled selected>Klasifikasi Sampah</option>
                                 <?php
                                 $url = "http://116.193.190.156/waste-api/kategori";
@@ -32,7 +33,7 @@ $obj = json_decode(file_get_contents($url), true);
                         </div>
                         
                         <div class="form-floating mb-4">
-                            <input type="number" name="berat_kategori_${id}" class="form-control form-floating-sm user-input berat" min="1" id="${id}" data-id="${id}" required placeholder="berat">
+                            <input type="number" name="berat_kategori" class="form-control form-floating-sm user-input berat" min="1" id="${id}" data-id="${id}" required placeholder="berat">
                             <label class="title-column" for="berat">Berat Sampah Kategori</label>
                             <small class="text-primary fw-bold">Dalam Satuan Kg</small>
                             <div class="valid-feedback">
@@ -44,26 +45,62 @@ $obj = json_decode(file_get_contents($url), true);
                         </div>
                     </div>
                 </div>
-                `)
+                `);
+
         });
 
         $(document).on('change', '.berat', function() {
             let id = $(this).attr('data-id');
             let value = $(this).val();
 
-            var n = $("input[name^='berat_kategori']").length;
-            var array = $("input[name^='berat_kategori']");
+            let n = $("input[name^='berat_kategori']").length;
+            let array = $("input[name^='berat_kategori']");
             let total = 0;
             for (i = 0; i < n; i++) {
                 let berat = array.eq(i).val();
                 total += parseInt(berat)
                 $('#berat-total').html(total);
-                $('#value-berat-total').removeAttr('value');
-                $('#value-berat-total').attr('value', parseInt(total));
+                $('#value-berat-total-add').removeAttr('value');
+                $('#value-berat-total-add').attr('value', parseInt(total));
                 document.getElementById('berat_total').value = total;
             }
 
         })
+
+        $(document).on('click', '#buttoneditsampah', function(e) {
+            e.preventDefault();
+            let idCard = $(this).attr('data-id');
+            $(document).on('change', '.berat-edit' + idCard, function() {
+                let id = $(this).attr('data-id');
+                let value = $(this).val();
+
+                let n = $(`input[data-name^='berat_kategori_edit${idCard}']`).length;
+                let array = $(`input[data-name^='berat_kategori_edit${idCard}']`);
+                let total = 0;
+                for (i = 0; i < n; i++) {
+                    let berat = array.eq(i).val();
+                    total += parseInt(berat)
+                    $('#berat-total-edit' + idCard).html(total);
+                    $('#value-berat-total-edit' + idCard).removeAttr('value');
+                    $('#value-berat-total-edit' + idCard).attr('value', parseInt(total));
+                    // document.getElementById('berat_total').value = total;
+                }
+            })
+        });
+
+
+        $(document).on('change', '.berat', function(e) {
+            e.preventDefault();
+            $('.hidden-berat-kategori').html(' ');
+            let n = $("input[name^='berat_kategori']").length;
+            let array = $("input[name^='berat_kategori']");
+            let array2 = $("select[name^='id_kategori']");
+            $('.hidden-berat-kategori').html(' ');
+            for (i = 0; i < n; i++) {
+                $('.hidden-berat-kategori').append(`<input type="hidden" id="" name="value_berat_kategori_${i+1}" value="${array.eq(i).val()}">`);
+                $('.hidden-berat-kategori').append(`<input type="hidden" id="" name="value_id_kategori_${i+1}" value="${array2.eq(i).val()}">`);
+            }
+        });
 
         $(document).on('click', '#hapus-kategori', function(e) {
             e.preventDefault();
