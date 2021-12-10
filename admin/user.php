@@ -163,7 +163,7 @@
                                         </tr>
                                     </thead>
                                     <?php
-                                    $url = "http://116.193.190.156/waste-api/warga";
+                                    $url = "http://103.172.205.249/waste-api/warga";
                                     $obj = json_decode(file_get_contents($url), true);
                                     // echo var_dump($obj["data"][0]["nama_admin"]);
                                     $i = 1;
@@ -338,7 +338,7 @@
         $email = $_POST['email'];
         // $defaultPassword = "123";
 
-        $url = "http://116.193.190.156/waste-api/warga";
+        $url = "http://103.172.205.249/waste-api/warga";
 
         $data = array(
             'nama_kepala_keluarga' => $nama_kepala_keluarga,
@@ -374,7 +374,7 @@
         $no_telp =  $_POST['edit-notelp'];
         $email = $_POST['edit-email'];
 
-        $url = "http://116.193.190.156/waste-api/warga/" . $id_warga;
+        $url = "http://103.172.205.249/waste-api/warga/" . $id_warga;
 
         $data = array(
             'nama_kepala_keluarga' => $nama_kepala_keluarga,
@@ -405,7 +405,7 @@
     if (isset($_POST['delete-user'])) {
         $id_warga = $_POST['delete-user'];
 
-        $url = "http://116.193.190.156/waste-api/warga/" . $id_warga;
+        $url = "http://103.172.205.249/waste-api/warga/" . $id_warga;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);

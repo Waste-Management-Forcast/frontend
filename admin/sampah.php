@@ -182,7 +182,7 @@
                                         </tr>
                                     </thead>
                                     <?php
-                                    $url = "http://116.193.190.156/waste-api/dataSampah";
+                                    $url = "http://103.172.205.249/waste-api/dataSampah";
                                     $obj = json_decode(file_get_contents($url), true);
                                     // echo var_dump($obj);
                                     // die;
@@ -226,7 +226,7 @@
                                                                                 <select class="form-select" name="id_warga<?= $arr['id_sampah']; ?>" required>
                                                                                     <option value="" disabled selected>Nama Kepala Keluarga</option>
                                                                                     <?php
-                                                                                    $url = "http://116.193.190.156/waste-api/warga";
+                                                                                    $url = "http://103.172.205.249/waste-api/warga";
                                                                                     $obj = json_decode(file_get_contents($url), true);
 
                                                                                     foreach ($obj['data'] as $item) :
@@ -245,9 +245,9 @@
                                                                                 <select class="form-select" name="id_admin<?= $arr['id_sampah']; ?>" required>
                                                                                     <option value="" disabled selected>Nama Admin</option>
                                                                                     <?php
-                                                                                    $url = "http://116.193.190.156/waste-api/admin";
+                                                                                    $url = "http://103.172.205.249/waste-api/admin";
                                                                                     $obj = json_decode(file_get_contents($url), true);
-                                                                                    $url2 = "http://116.193.190.156/waste-api/dataSampah/" . $arr['id_sampah'];
+                                                                                    $url2 = "http://103.172.205.249/waste-api/dataSampah/" . $arr['id_sampah'];
                                                                                     $obj2 = json_decode(file_get_contents($url2), true);
                                                                                     // echo var_dump($obj["data"][0]["nama_admin"]);
                                                                                     $i = 1;
@@ -276,7 +276,7 @@
                                                                             </div>
                                                                             <hr>
                                                                             <?php
-                                                                            $url = "http://116.193.190.156/waste-api/dataSampah/" . $arr['id_sampah'];
+                                                                            $url = "http://103.172.205.249/waste-api/dataSampah/" . $arr['id_sampah'];
                                                                             $obj = json_decode(file_get_contents($url), true);
                                                                             $j = 1;
                                                                             foreach ($obj['data']['detail_sampah'] as $item) :
@@ -287,7 +287,7 @@
                                                                                             <select class="form-select" required name="<?= $arr['id_sampah']; ?>edit_id_kategori_<?= $j; ?>" id="klasifikasi-sampah">
                                                                                                 <option value="" disabled selected>Klasifikasi Sampah</option>
                                                                                                 <?php
-                                                                                                $url = "http://116.193.190.156/waste-api/kategori";
+                                                                                                $url = "http://103.172.205.249/waste-api/kategori";
                                                                                                 $obj = json_decode(file_get_contents($url), true);
                                                                                                 foreach ($obj["data"] as $i) { ?>
                                                                                                     <option value="<?= $i['id_kategori_sampah']; ?>" <?= $i['name_kategori'] == $item['kategori_sampah']['name_kategori'] ? 'selected' : ''; ?>><?= $i['name_kategori']; ?></option>
@@ -360,7 +360,7 @@
                                 <select class="form-select" name="id_warga" required>
                                     <option value="" disabled selected>Nama Kepala Keluarga</option>
                                     <?php
-                                    $url = "http://116.193.190.156/waste-api/warga";
+                                    $url = "http://103.172.205.249/waste-api/warga";
                                     $obj = json_decode(file_get_contents($url), true);
                                     // echo var_dump($obj["data"][0]["nama_admin"]);
                                     $i = 1;
@@ -379,7 +379,7 @@
                                 <select class="form-select" name="id_admin" required>
                                     <option value="" disabled selected>Nama Admin</option>
                                     <?php
-                                    $url = "http://116.193.190.156/waste-api/admin";
+                                    $url = "http://103.172.205.249/waste-api/admin";
                                     $obj = json_decode(file_get_contents($url), true);
                                     foreach ($obj["data"] as $arr) { ?>
                                         <option value="<?= $arr['id_admin']; ?>"><?= $arr['nama_admin']; ?></option>
@@ -489,7 +489,7 @@
         $kategori = $_POST['nama_kategori'];
         $klasifikasi = $_POST['klasifikasi'];
 
-        $url = "http://116.193.190.156/waste-api/kategori";
+        $url = "http://103.172.205.249/waste-api/kategori";
 
         $data = array(
             'name_kategori' => $kategori,
@@ -564,7 +564,7 @@
             $berat_kategori_5 = '';
         }
 
-        $url = "http://116.193.190.156/waste-api/dataSampah";
+        $url = "http://103.172.205.249/waste-api/dataSampah";
 
         $data = array(
             'id_warga' => $id_warga,
@@ -601,7 +601,7 @@
     ?>
 
     <?php
-    $url = "http://116.193.190.156/waste-api/dataSampah";
+    $url = "http://103.172.205.249/waste-api/dataSampah";
     $obj = json_decode(file_get_contents($url), true);
     foreach ($obj['data'] as $arr) {
         if (isset($_POST['edit-sampah' . $arr['id_sampah']])) {
@@ -651,7 +651,7 @@
                 $berat_kategori_5 = '';
             }
 
-            $url = "http://116.193.190.156/waste-api/dataSampah/" . $id_sampah;
+            $url = "http://103.172.205.249/waste-api/dataSampah/" . $id_sampah;
 
             $data = array(
                 'id_warga' => $id_warga,
@@ -694,7 +694,7 @@
     if (isset($_POST['delete-sampah'])) {
         $id_sampah = $_POST['delete-sampah'];
 
-        $url = "http://116.193.190.156/waste-api/dataSampah/" . $id_sampah;
+        $url = "http://103.172.205.249/waste-api/dataSampah/" . $id_sampah;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
