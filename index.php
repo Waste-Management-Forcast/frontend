@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="container-login100-form-btn m-t-32">
-                        <a class="login100-form-btn" href="admin/dashboard-admin.html">
+                        <a class="login100-form-btn" href="admin/dashboard-admin.php">
                             Login
                         </a>
                     </div>

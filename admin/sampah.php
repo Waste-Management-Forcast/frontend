@@ -60,7 +60,7 @@
     <nav class="pc-sidebar ">
         <div class="navbar-wrapper">
             <div class="m-header">
-                <a href="dashboard-admin.html" class="b-brand mt-2 fw-bold text-light">
+                <a href="dashboard-admin.php" class="b-brand mt-2 fw-bold text-light">
                     WASTE MANAGEMENT
                 </a>
             </div>
@@ -70,7 +70,7 @@
                         <label>MENU</label>
                     </li>
                     <li class="pc-item">
-                        <a href="dashboard-admin.html" class="pc-link "><span class="pc-micon">
+                        <a href="dashboard-admin.php" class="pc-link "><span class="pc-micon">
                                 <i class="fas fa-chart-pie fa-2x"></i></span><span class="pc-mtext">Dashboard</span>
                         </a>
                     </li>

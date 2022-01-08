@@ -1,5 +1,5 @@
 <?php
-$url = "http://116.193.190.156/waste-api/admin";
+$url = "http://103.172.205.249/waste-api/admin";
 $obj = json_decode(file_get_contents($url), true);
 ?>
 <script>
@@ -18,7 +18,7 @@ $obj = json_decode(file_get_contents($url), true);
                             <select class="form-select" required name="id_kategori" id="klasifikasi-sampah" data-id="${id}">
                                 <option value="" disabled selected>Klasifikasi Sampah</option>
                                 <?php
-                                $url = "http://116.193.190.156/waste-api/kategori";
+                                $url = "http://103.172.205.249/waste-api/kategori";
                                 $obj = json_decode(file_get_contents($url), true);
                                 foreach ($obj["data"] as $arr) { ?>
                                         <option value="<?= $arr['id_kategori_sampah']; ?>"><?= $arr['name_kategori']; ?></option>
