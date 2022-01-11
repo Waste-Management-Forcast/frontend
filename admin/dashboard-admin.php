@@ -1,3 +1,19 @@
+<?php
+if (isset($_COOKIE['X-WASTE-SESSION'])) {
+    $url = "http://103.172.205.249/waste-api/protected";
+    $authorization = "Authorization: Bearer " . $_COOKIE['X-WASTE-SESSION'];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    $json = json_decode($result, true);
+} else {
+    echo "<script>alert('Silahkan login dulu '); window.location='../index.php';</script>";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +77,7 @@
     <nav class="pc-sidebar ">
         <div class="navbar-wrapper">
             <div class="m-header">
-                <a href="dashboard-admin.html" class="b-brand mt-2 fw-bold text-light">
+                <a href="dashboard-admin.php" class="b-brand mt-2 fw-bold text-light">
                     WASTE MANAGEMENT
                 </a>
             </div>
@@ -71,7 +87,7 @@
                         <label>MENU</label>
                     </li>
                     <li class="pc-item">
-                        <a href="dashboard-admin.html" class="pc-link "><span class="pc-micon">
+                        <a href="dashboard-admin.php" class="pc-link "><span class="pc-micon">
                                 <i class="fas fa-chart-pie fa-2x"></i></span><span class="pc-mtext">Dashboard</span>
                         </a>
                     </li>
@@ -103,12 +119,12 @@
                         <a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <img src="assets/images/user/admin.png" alt="user-image" class="user-avtar">
                             <span>
-                                <span class="user-name">Administrator</span>
-                                <span class="user-desc">Super Admin</span>
+                                <span class="user-name"><?= $json["data"][0]["name"]; ?></span>
+                                <span class="user-desc"><?= $json["data"][0]["role"]; ?></span>
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
-                            <a href="../index.php" class="dropdown-item">
+                            <a href="../logout.php" class="dropdown-item">
                                 <i class="fa fa-sign-out-alt"></i>
                                 <span>Logout</span>
                             </a>

@@ -1,3 +1,19 @@
+<?php
+if (isset($_COOKIE['X-WASTE-SESSION'])) {
+    $url = "http://103.172.205.249/waste-api/protected";
+    $authorization = "Authorization: Bearer " . $_COOKIE['X-WASTE-SESSION'];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    $json = json_decode($result, true);
+} else {
+    echo "<script>alert('Silahkan login dulu '); window.location='../index.php';</script>";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -102,8 +118,8 @@
                         <a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <img src="assets/images/user/admin.png" alt="user-image" class="user-avtar">
                             <span>
-                                <span class="user-name">Administrator</span>
-                                <span class="user-desc">Super Admin</span>
+                                <span class="user-name"><?= $json["data"][0]["name"]; ?></span>
+                                <span class="user-desc"><?= $json["data"][0]["role"]; ?></span>
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right pc-h-dropdown">

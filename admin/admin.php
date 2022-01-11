@@ -1,3 +1,19 @@
+<?php
+if (isset($_COOKIE['X-WASTE-SESSION'])) {
+    $url = "http://103.172.205.249/waste-api/protected";
+    $authorization = "Authorization: Bearer " . $_COOKIE['X-WASTE-SESSION'];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    $json = json_decode($result, true);
+} else {
+    echo "<script>alert('Silahkan login dulu '); window.location='../index.php';</script>";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -105,8 +121,8 @@
                         <a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <img src="assets/images/user/admin.png" alt="user-image" class="user-avtar">
                             <span>
-                                <span class="user-name">Administrator</span>
-                                <span class="user-desc">Super Admin</span>
+                                <span class="user-name"><?= $json["data"][0]["name"]; ?></span>
+                                <span class="user-desc"><?= $json["data"][0]["role"]; ?></span>
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
@@ -200,6 +216,8 @@
                                                     <?php
                                                     $url1 = $url . "/" . $arr['id_admin'];
                                                     $obj1 = json_decode(file_get_contents($url1), true);
+                                                    $tgl = strtotime($obj1['data']['tanggal_lahir']);
+                                                    $tgl_lahir = date('Y-m-d', $tgl);
                                                     ?>
                                                     <div class="modal-body">
                                                         <form action="" method="POST" class="needs-validation form-contact-me" novalidate>
@@ -215,7 +233,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-floating mb-3">
-                                                                    <input type="text" name="edit-tgl-lahir" class="form-control user-input" id="tgl-lahir" required value="<?= $obj1['data']['tanggal_lahir']; ?>">
+                                                                    <input type="date" name="edit-tanggal-lahir" class="form-control user-input" id="tgl-lahir" required value="<?= $tgl_lahir; ?>">
                                                                     <label class="title-column" for="tgl-lahir">Tanggal lahir</label>
                                                                     <div class="valid-feedback">
                                                                         Yeay! Great
@@ -286,7 +304,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-floating mb-3">
-                                                                    <input type="number" name="edit-no-telp" class="form-control user-input" id="notelepon" required placeholder="notelepon" value="<?= $obj1['data']['no_telp']; ?>">
+                                                                    <input type="number" name="edit-notelp" class="form-control user-input" id="notelepon" required placeholder="notelepon" value="<?= $obj1['data']['no_telp']; ?>">
                                                                     <label class="title-column" for="notelepon">No Telepon</label>
                                                                     <div class="valid-feedback">
                                                                         Good Job!
@@ -489,7 +507,7 @@
         $no_telp = $_POST['edit-notelp'];
         $agama = $_POST['edit-agama'];
         $email = $_POST['edit-email'];
-        $defaultPassword = "123";
+        // $defaultPassword = "123";
 
         $url = "http://103.172.205.249/waste-api/admin/" . $id_admin;
 
@@ -501,8 +519,7 @@
             'jenis_kelamin' => $jenis_kelamin,
             'no_telp' => $no_telp,
             'agama' => $agama,
-            'email' => $email,
-            'defaultPassword' => '123'
+            'email' => $email
         );
 
 
@@ -514,9 +531,9 @@
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
         $result = curl_exec($ch);
-        $result = json_decode($result);
         curl_close($ch);
 
+        // var_dump($result);
         // header("Refresh:0; url=admin.php");
         echo "<script>alert('Data Berhasil Diubah !!!'); window.location='admin.php';</script>";
     }
@@ -538,8 +555,9 @@
         $result = json_decode($result);
         curl_close($ch);
 
+        var_dump($result);
         // header("Refresh:0; url=admin.php");
-        echo "<script>alert('Data Berhasil Dihapus !!!'); window.location='admin.php';</script>";
+        // echo "<script>alert('Data Berhasil Dihapus !!!'); window.location='admin.php';</script>";
     }
     ?>
 

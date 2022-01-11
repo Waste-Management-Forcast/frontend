@@ -25,7 +25,7 @@
                 <span class="login100-form-title p-b-41">
                     Waste Management Forecast
                 </span>
-                <form class="login100-form validate-form p-b-33 p-t-5" action="../user/dashboard-user.html">
+                <form class="login100-form validate-form p-b-33 p-t-5" action="" method="POST">
 
                     <div class="wrap-input100 validate-input" data-validate="Enter username">
                         <input class="input100" type="text" autocomplete="off" name="username" placeholder="Username">
@@ -33,19 +33,56 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <input class="input100" type="password" name="pass" placeholder="Password">
+                        <input class="input100" type="password" name="password" placeholder="Password">
                         <span class="focus-input100" data-placeholder="&#xe80f;"></span>
                     </div>
 
                     <div class="container-login100-form-btn m-t-32">
-                        <a class="login100-form-btn" href="admin/dashboard-admin.php">
-                            Login
-                        </a>
+                        <button type="submit" class="login100-form-btn" name="login">Login</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <!-- Process add data admin using POST Method CuRL -->
+    <?php
+    if (isset($_POST['login'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        $url = "http://103.172.205.249/waste-api/login";
+
+        $data = array(
+            'username' => $username,
+            'password' => $password
+        );
+
+
+        $postvars = http_build_query($data) . "\n";
+
+        $ch = curl_init($url);
+        // curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec($ch);
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        curl_close($ch);
+        $jwt = json_decode($server_output);
+
+        if ($httpcode == 200) {
+            setcookie("X-WASTE-SESSION", $jwt->data->access_token);
+            echo "<script>alert('" . $jwt->message . "'); window.location='admin/dashboard-admin.php';</script>";
+        } else {
+            echo "<script>alert('Login Gagal'); window.location='index.php';</script>";
+        }
+    }
+    ?>
 
 
     <div id="dropDownSelect1"></div>
