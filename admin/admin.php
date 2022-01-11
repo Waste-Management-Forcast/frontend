@@ -126,7 +126,7 @@ if (isset($_COOKIE['X-WASTE-SESSION'])) {
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
-                            <a href="../index.php" class="dropdown-item">
+                            <a href="../logout.php" class="dropdown-item">
                                 <i class="fa fa-sign-out-alt"></i>
                                 <span>Logout</span>
                             </a>
