@@ -364,7 +364,7 @@ if (isset($_COOKIE['X-WASTE-SESSION'])) {
         );
 
 
-        $postvars = http_build_query($data) . "\n";
+        $postvars = http_build_query($data);
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -400,7 +400,7 @@ if (isset($_COOKIE['X-WASTE-SESSION'])) {
         );
 
 
-        $postvars = http_build_query($data) . "\n";
+        $postvars = http_build_query($data);
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_URL, $url);

@@ -275,13 +275,13 @@ if (isset($_COOKIE['X-WASTE-SESSION'])) {
                                                                 <div class="form-floating mb-3">
                                                                     Jenis Kelamin
                                                                     <div class="form-check mt-2">
-                                                                        <input class="form-check-input" type="radio" name="edit-jenis-kelamin" id="jeniskelamin1" value="0" <?= $obj1['data']['jenis_kelamin'] == 'Laki-laki' ? 'checked="checked"' : ''; ?>>
+                                                                        <input class="form-check-input" type="radio" name="edit-jenis-kelamin" id="jeniskelamin1" value="Laki-laki" <?= $obj1['data']['jenis_kelamin'] == 'Laki-laki' ? 'checked="checked"' : ''; ?>>
                                                                         <label class="form-check-label" for="jeniskelamin1">
                                                                             Laki-Laki
                                                                         </label>
                                                                     </div>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="edit-jenis-kelamin" id="jeniskelamin2" value="1" <?= $obj1['data']['jenis_kelamin'] == 'Perempuan' ? 'checked="checked"' : ''; ?>>
+                                                                        <input class="form-check-input" type="radio" name="edit-jenis-kelamin" id="jeniskelamin2" value="Perempuan" <?= $obj1['data']['jenis_kelamin'] == 'Perempuan' ? 'checked="checked"' : ''; ?>>
                                                                         <label class="form-check-label" for="jeniskelamin2">
                                                                             Perempuan
                                                                         </label>
@@ -402,13 +402,13 @@ if (isset($_COOKIE['X-WASTE-SESSION'])) {
                             <div class="form-floating mb-3">
                                 Jenis Kelamin
                                 <div class="form-check mt-2">
-                                    <input class="form-check-input" type="radio" name="jenis-kelamin" id="jeniskelamin1" value="0" checked>
+                                    <input class="form-check-input" type="radio" name="jenis-kelamin" id="jeniskelamin1" value="Laki-laki">
                                     <label class="form-check-label" for="jeniskelamin1">
                                         Laki-Laki
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="jenis-kelamin" id="jeniskelamin2" value="1">
+                                    <input class="form-check-input" type="radio" name="jenis-kelamin" id="jeniskelamin2" value="Perempuan">
                                     <label class="form-check-label" for="jeniskelamin2">
                                         Perempuan
                                     </label>
@@ -478,7 +478,7 @@ if (isset($_COOKIE['X-WASTE-SESSION'])) {
         );
 
 
-        $postvars = http_build_query($data) . "\n";
+        $postvars = http_build_query($data);
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -489,6 +489,7 @@ if (isset($_COOKIE['X-WASTE-SESSION'])) {
 
         $server_output = curl_exec($ch);
 
+        // var_dump($data);
         curl_close($ch);
         // header("Refresh:0; url=admin.php");
         echo "<script>alert('Data Berhasil Disimpan !!!'); window.location='admin.php';</script>";
@@ -523,7 +524,7 @@ if (isset($_COOKIE['X-WASTE-SESSION'])) {
         );
 
 
-        $postvars = http_build_query($data) . "\n";
+        $postvars = http_build_query($data);
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -555,9 +556,9 @@ if (isset($_COOKIE['X-WASTE-SESSION'])) {
         $result = json_decode($result);
         curl_close($ch);
 
-        var_dump($result);
+        // var_dump($result);
         // header("Refresh:0; url=admin.php");
-        // echo "<script>alert('Data Berhasil Dihapus !!!'); window.location='admin.php';</script>";
+        echo "<script>alert('Data Berhasil Dihapus !!!'); window.location='admin.php';</script>";
     }
     ?>
 
